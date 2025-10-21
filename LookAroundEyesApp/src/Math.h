@@ -14,6 +14,16 @@
 #define M_PI 3.14159265358979323846
 #endif
 
+// The Leia SR SDK pollutes both global namespace and std namespace,
+// breaking math functions. Define safe wrapper functions here that use
+// the global C functions directly before any SDK headers can break them.
+namespace SafeMath {
+    inline float Sqrt(float x) { return ::sqrtf(x); }
+    inline float Cos(float x) { return ::cosf(x); }
+    inline float Sin(float x) { return ::sinf(x); }
+    inline float Atan2(float y, float x) { return ::atan2f(y, x); }
+}
+
 #pragma pack(push, 1)
 
 // 3D Vector
@@ -61,7 +71,7 @@ struct vec3f
         return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z);
     }
     static float length(const vec3f& v) {
-        return static_cast<float>(std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+        return SafeMath::Sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
     }
     static vec3f normalize(const vec3f& v) {
         float len = length(v);
@@ -133,8 +143,8 @@ struct mat4f
     // Rotation around Y axis
     static mat4f rotationY(float angle) {
         mat4f result = identity();
-        float c = static_cast<float>(std::cos(angle));
-        float s = static_cast<float>(std::sin(angle));
+        float c = SafeMath::Cos(angle);
+        float s = SafeMath::Sin(angle);
         result.m[0][0] = c;
         result.m[0][2] = s;
         result.m[2][0] = -s;
@@ -145,8 +155,8 @@ struct mat4f
     // Rotation around X axis
     static mat4f rotationX(float angle) {
         mat4f result = identity();
-        float c = static_cast<float>(std::cos(angle));
-        float s = static_cast<float>(std::sin(angle));
+        float c = SafeMath::Cos(angle);
+        float s = SafeMath::Sin(angle);
         result.m[1][1] = c;
         result.m[1][2] = -s;
         result.m[2][1] = s;
@@ -157,8 +167,8 @@ struct mat4f
     // Rotation around Z axis
     static mat4f rotationZ(float angle) {
         mat4f result = identity();
-        float c = static_cast<float>(std::cos(angle));
-        float s = static_cast<float>(std::sin(angle));
+        float c = SafeMath::Cos(angle);
+        float s = SafeMath::Sin(angle);
         result.m[0][0] = c;
         result.m[0][1] = -s;
         result.m[1][0] = s;
