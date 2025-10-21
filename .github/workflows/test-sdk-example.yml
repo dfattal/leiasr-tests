@@ -33,19 +33,34 @@ jobs:
         dir /S "build_test\directx11_weaving"
       shell: cmd
 
-    - name: Check for project file
+    - name: Setup CMake
       run: |
-        echo "Looking for .sln or .vcxproj files:"
-        dir /B /S "build_test\directx11_weaving\*.sln"
-        dir /B /S "build_test\directx11_weaving\*.vcxproj"
+        echo "CMake version:"
+        cmake --version
+      shell: cmd
+
+    - name: Configure CMake
+      run: |
+        cd build_test\directx11_weaving
+        cmake -B build -G "Visual Studio 17 2022" -A x64 -DSIMULATEDREALITY_SDK_PATH="%CD%\..\..\simulatedreality-SDK-1.34.8.31132-win64-Release"
+      shell: cmd
+
+    - name: Build with CMake
+      run: |
+        cd build_test\directx11_weaving
+        cmake --build build --config Release
+      shell: cmd
+
+    - name: List build output
+      run: |
+        echo "Build output directory:"
+        dir /S "build_test\directx11_weaving\build\Release"
       shell: cmd
       continue-on-error: true
 
-    - name: List SDK structure
-      run: |
-        echo "SDK directory structure:"
-        dir "simulatedreality-SDK-1.34.8.31132-win64-Release"
-        echo ""
-        echo "Examples directory:"
-        dir "simulatedreality-SDK-1.34.8.31132-win64-Release\examples"
-      shell: cmd
+    - name: Upload SDK example build
+      uses: actions/upload-artifact@v4
+      with:
+        name: directx11_weaving_example
+        path: build_test/directx11_weaving/build/Release/*.exe
+        if-no-files-found: warn
