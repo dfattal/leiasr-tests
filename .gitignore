@@ -55,13 +55,10 @@ Desktop.ini
 .AppleDouble
 .LSOverride
 
-# IMPORTANT: DO NOT IGNORE THE SDK
-# We need the SDK for GitHub Actions to build
-# Explicitly include it by NOT ignoring it
-# simulatedreality-SDK-1.34.8.31132-win64-Release/   <- DO NOT UNCOMMENT THIS
-
-# Only ignore SDK documentation (optional, to reduce repo size)
-simulatedreality-SDK-1.34.8.31132-win64-Release/docs/
+# SDK is downloaded dynamically by GitHub Actions
+# No need to commit it to the repository
+simulatedreality-SDK-1.34.8.31132-win64-Release/
+*.zip
 
 # Test data (optional - uncomment if you have large test files)
 # LeiaSplatViewer/test_data/*.ply

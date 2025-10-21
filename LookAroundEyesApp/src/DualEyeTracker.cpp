@@ -3,6 +3,7 @@
  * Dual eye tracking system implementation
  */
 
+#include <cmath>  // Include standard library headers BEFORE SDK headers to avoid conflicts
 #include "DualEyeTracker.h"
 
 // SREyePairListener implementation
