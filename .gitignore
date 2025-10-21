@@ -55,9 +55,14 @@ Desktop.ini
 .AppleDouble
 .LSOverride
 
-# SDK is downloaded dynamically by GitHub Actions
-# No need to commit it to the repository
-simulatedreality-SDK-1.34.8.31132-win64-Release/
+# IMPORTANT: SDK is committed to repository for GitHub Actions
+# Uncomment the line below to ignore SDK locally if you have it installed
+# simulatedreality-SDK-1.34.8.31132-win64-Release/
+
+# Ignore SDK documentation to reduce size
+simulatedreality-SDK-1.34.8.31132-win64-Release/docs/
+
+# Ignore ZIP files
 *.zip
 
 # Test data (optional - uncomment if you have large test files)
