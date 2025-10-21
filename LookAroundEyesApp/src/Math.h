@@ -5,23 +5,29 @@
 
 #pragma once
 
-// Include C math header first to ensure C functions are declared in global namespace
-// This works around conflicts with the Leia SR SDK headers
+// Include Windows math header FIRST before any other headers
+// The Leia SR SDK completely breaks all math functions in all namespaces
+#define _USE_MATH_DEFINES
 #include <math.h>
-#include <cmath>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
 
-// The Leia SR SDK pollutes both global namespace and std namespace,
-// breaking math functions. Define safe wrapper functions here that use
-// the global C functions directly before any SDK headers can break them.
+// Forward declare C math functions with extern "C" linkage to bypass namespace pollution
+extern "C" {
+    float sqrtf(float);
+    float cosf(float);
+    float sinf(float);
+    float atan2f(float, float);
+}
+
+// Safe wrapper namespace that directly calls C functions
 namespace SafeMath {
-    inline float Sqrt(float x) { return ::sqrtf(x); }
-    inline float Cos(float x) { return ::cosf(x); }
-    inline float Sin(float x) { return ::sinf(x); }
-    inline float Atan2(float y, float x) { return ::atan2f(y, x); }
+    inline float Sqrt(float x) { return sqrtf(x); }
+    inline float Cos(float x) { return cosf(x); }
+    inline float Sin(float x) { return sinf(x); }
+    inline float Atan2(float y, float x) { return atan2f(y, x); }
 }
 
 #pragma pack(push, 1)
