@@ -1,0 +1,51 @@
+name: Test SDK Example Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-sdk-example:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Display MSBuild version
+      run: msbuild -version
+
+    - name: Copy SDK example to build location
+      run: |
+        # Copy the entire directx11_weaving example to a build directory
+        xcopy /E /I /Y "simulatedreality-SDK-1.34.8.31132-win64-Release\examples\directx11_weaving" "build_test\directx11_weaving"
+      shell: cmd
+
+    - name: List example files
+      run: |
+        echo "Listing files in the example directory:"
+        dir /S "build_test\directx11_weaving"
+      shell: cmd
+
+    - name: Check for project file
+      run: |
+        echo "Looking for .sln or .vcxproj files:"
+        dir /B /S "build_test\directx11_weaving\*.sln"
+        dir /B /S "build_test\directx11_weaving\*.vcxproj"
+      shell: cmd
+      continue-on-error: true
+
+    - name: List SDK structure
+      run: |
+        echo "SDK directory structure:"
+        dir "simulatedreality-SDK-1.34.8.31132-win64-Release"
+        echo ""
+        echo "Examples directory:"
+        dir "simulatedreality-SDK-1.34.8.31132-win64-Release\examples"
+      shell: cmd
