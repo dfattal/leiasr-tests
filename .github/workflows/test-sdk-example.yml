@@ -42,7 +42,7 @@ jobs:
     - name: Configure CMake
       run: |
         cd build_test\directx11_weaving
-        cmake -B build -G "Visual Studio 17 2022" -A x64 -DSIMULATEDREALITY_SDK_PATH="%CD%\..\..\simulatedreality-SDK-1.34.8.31132-win64-Release"
+        cmake -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_PREFIX_PATH="%CD%\..\..\simulatedreality-SDK-1.34.8.31132-win64-Release"
       shell: cmd
 
     - name: Build with CMake
