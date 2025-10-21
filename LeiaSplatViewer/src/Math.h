@@ -62,7 +62,7 @@ struct vec3f
         return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z);
     }
     static float length(const vec3f& v) {
-        return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+        return static_cast<float>(std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
     }
     static vec3f normalize(const vec3f& v) {
         float len = length(v);
@@ -87,7 +87,7 @@ struct vec4f
 
     // Quaternion operations
     static vec4f normalize(const vec4f& q) {
-        float len = sqrtf(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
+        float len = static_cast<float>(std::sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w));
         return (len > 0.0f) ? vec4f(q.x / len, q.y / len, q.z / len, q.w / len) : vec4f(0, 0, 0, 1);
     }
 };
@@ -243,8 +243,8 @@ struct mat4f
     // Rotation around Y axis
     static mat4f rotationY(float angle) {
         mat4f result = identity();
-        float c = cosf(angle);
-        float s = sinf(angle);
+        float c = static_cast<float>(std::cos(angle));
+        float s = static_cast<float>(std::sin(angle));
         result.m[0][0] = c;
         result.m[0][2] = s;
         result.m[2][0] = -s;
@@ -255,8 +255,8 @@ struct mat4f
     // Rotation around X axis
     static mat4f rotationX(float angle) {
         mat4f result = identity();
-        float c = cosf(angle);
-        float s = sinf(angle);
+        float c = static_cast<float>(std::cos(angle));
+        float s = static_cast<float>(std::sin(angle));
         result.m[1][1] = c;
         result.m[1][2] = -s;
         result.m[2][1] = s;
@@ -267,8 +267,8 @@ struct mat4f
     // Rotation around Z axis
     static mat4f rotationZ(float angle) {
         mat4f result = identity();
-        float c = cosf(angle);
-        float s = sinf(angle);
+        float c = static_cast<float>(std::cos(angle));
+        float s = static_cast<float>(std::sin(angle));
         result.m[0][0] = c;
         result.m[0][1] = -s;
         result.m[1][0] = s;
@@ -366,9 +366,9 @@ struct mat4f
 
 // Helper: Convert spherical coordinates to Cartesian
 inline vec3f SphericalToCartesian(float azimuth, float elevation, float distance) {
-    float x = distance * cosf(elevation) * sinf(azimuth);
-    float y = distance * sinf(elevation);
-    float z = distance * cosf(elevation) * cosf(azimuth);
+    float x = distance * static_cast<float>(std::cos(elevation)) * static_cast<float>(std::sin(azimuth));
+    float y = distance * static_cast<float>(std::sin(elevation));
+    float z = distance * static_cast<float>(std::cos(elevation)) * static_cast<float>(std::cos(azimuth));
     return vec3f(x, y, z);
 }
 
