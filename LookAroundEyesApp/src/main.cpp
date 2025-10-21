@@ -11,15 +11,21 @@
 #include <chrono>
 #include <iostream>
 
-// Leia SR includes
+// Leia SR includes with pragma warning isolation (SRHydra pattern)
 #define SRDISPLAY_LAZYBINDING
+#pragma warning(push)
+#pragma warning(disable : 4201)  // nonstandard extension: nameless struct/union
+#pragma warning(disable : 5208)  // unnamed class used in typedef name cannot declare members
+#pragma warning(disable : 4505)  // unreferenced local function has been removed
+#pragma warning(disable : 4005)  // macro redefinition (NOMINMAX)
 #include "sr/utility/exception.h"
 #include "sr/sense/core/inputstream.h"
 #include "sr/sense/system/systemsense.h"
 #include "sr/world/display/display.h"
 #include "sr/weaver/dx11weaver.h"
+#pragma warning(pop)
 
-// App includes
+// App includes - safe to include after pragma pop
 #include "Math.h"
 #include "DualEyeTracker.h"
 #include "Scene.h"
