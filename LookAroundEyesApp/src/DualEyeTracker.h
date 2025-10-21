@@ -5,8 +5,6 @@
 
 #pragma once
 
-#include "Math.h"
-
 // Pragma warning isolation for SR SDK headers (SRHydra pattern)
 #pragma warning(push)
 #pragma warning(disable : 4201)  // nonstandard extension: nameless struct/union
@@ -17,6 +15,9 @@
 #include "sr/sense/core/inputstream.h"
 #include "sr/weaver/dx11weaver.h"
 #pragma warning(pop)
+
+// Include Math.h AFTER SR SDK headers (SRHydra pattern)
+#include "Math.h"
 
 // EyePairListener implementation for callback-based eye tracking
 class SREyePairListener : public SR::EyePairListener

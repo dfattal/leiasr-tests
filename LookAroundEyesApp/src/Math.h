@@ -1,28 +1,18 @@
 /*!
  * LookAround Eyes Comparison App
  * Math utilities for 3D transformations
+ * Follows official SDK example pattern - includes <math.h> after SR SDK headers
  */
 
 #pragma once
 
-// Include Windows math header FIRST before any other headers
-// The Leia SR SDK completely breaks all math functions in all namespaces
-#define _USE_MATH_DEFINES
-#include <math.h>
+#include <math.h>  // Safe to include here - Math.h is included AFTER SR SDK pragma pop
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
 
-// Forward declare C math functions with extern "C" linkage to bypass namespace pollution
-extern "C" {
-    float sqrtf(float);
-    float cosf(float);
-    float sinf(float);
-    float atan2f(float, float);
-}
-
-// Safe wrapper namespace that directly calls C functions
+// Math utility namespace - uses C math functions (matches SDK examples)
 namespace SafeMath {
     inline float Sqrt(float x) { return sqrtf(x); }
     inline float Cos(float x) { return cosf(x); }
