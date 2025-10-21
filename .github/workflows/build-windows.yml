@@ -1,0 +1,180 @@
+name: Build Windows Applications
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build:
+    name: Build LookAroundEyesApp and LeiaSplatViewer
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        lfs: true  # In case SDK uses Git LFS
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3
+
+    - name: Display MSBuild version
+      run: msbuild -version
+
+    # Build LookAroundEyesApp
+    - name: Build LookAroundEyesApp (x64 Release)
+      run: |
+        msbuild LookAroundEyesApp\LookAroundEyesApp.vcxproj `
+          /p:Configuration=Release `
+          /p:Platform=x64 `
+          /p:OutDir=${{ github.workspace }}\build\LookAroundEyesApp\ `
+          /m `
+          /v:minimal
+      shell: powershell
+
+    # Build LeiaSplatViewer
+    - name: Build LeiaSplatViewer (x64 Release)
+      run: |
+        msbuild LeiaSplatViewer\LeiaSplatViewer.vcxproj `
+          /p:Configuration=Release `
+          /p:Platform=x64 `
+          /p:OutDir=${{ github.workspace }}\build\LeiaSplatViewer\ `
+          /m `
+          /v:minimal
+      shell: powershell
+
+    # Package LookAroundEyesApp artifacts
+    - name: Package LookAroundEyesApp
+      run: |
+        New-Item -ItemType Directory -Force -Path artifacts\LookAroundEyesApp
+
+        # Copy executable
+        Copy-Item -Path "build\LookAroundEyesApp\LookAroundEyesApp.exe" `
+                  -Destination "artifacts\LookAroundEyesApp\"
+
+        # Copy DLLs (from SDK bin directory, already copied by post-build event)
+        Copy-Item -Path "build\LookAroundEyesApp\*.dll" `
+                  -Destination "artifacts\LookAroundEyesApp\" `
+                  -ErrorAction SilentlyContinue
+
+        # Copy shaders
+        Copy-Item -Path "LookAroundEyesApp\shaders" `
+                  -Destination "artifacts\LookAroundEyesApp\" `
+                  -Recurse -Force
+
+        # Create README
+        @"
+        LookAroundEyes Comparison App - Windows Build
+        ============================================
+
+        Built: $((Get-Date).ToString("yyyy-MM-dd HH:mm:ss"))
+        Commit: $env:GITHUB_SHA
+
+        Requirements:
+        - Windows 10/11 x64
+        - Leia SR Platform Service running
+        - Leia SR display connected
+
+        To Run:
+        1. Extract this ZIP to a folder
+        2. Ensure Leia SR Platform Service is running
+        3. Double-click LookAroundEyesApp.exe
+        4. Press Tab to switch eye tracking methods
+
+        Controls:
+        - Tab: Switch between Weaver and Listener methods
+        - F11: Toggle fullscreen
+        - Esc: Exit
+        "@ | Out-File -FilePath "artifacts\LookAroundEyesApp\README.txt" -Encoding utf8
+      shell: powershell
+
+    # Package LeiaSplatViewer artifacts
+    - name: Package LeiaSplatViewer
+      run: |
+        New-Item -ItemType Directory -Force -Path artifacts\LeiaSplatViewer
+
+        # Copy executable
+        Copy-Item -Path "build\LeiaSplatViewer\LeiaSplatViewer.exe" `
+                  -Destination "artifacts\LeiaSplatViewer\"
+
+        # Copy DLLs
+        Copy-Item -Path "build\LeiaSplatViewer\*.dll" `
+                  -Destination "artifacts\LeiaSplatViewer\" `
+                  -ErrorAction SilentlyContinue
+
+        # Copy shaders
+        Copy-Item -Path "LeiaSplatViewer\shaders" `
+                  -Destination "artifacts\LeiaSplatViewer\" `
+                  -Recurse -Force
+
+        # Create README
+        @"
+        Leia Gaussian Splat Viewer - Windows Build
+        ==========================================
+
+        Built: $((Get-Date).ToString("yyyy-MM-dd HH:mm:ss"))
+        Commit: $env:GITHUB_SHA
+
+        Requirements:
+        - Windows 10/11 x64
+        - Leia SR Platform Service running
+        - Leia SR display connected
+        - Gaussian Splat .ply file to load
+
+        To Run:
+        1. Extract this ZIP to a folder
+        2. Ensure Leia SR Platform Service is running
+        3. Double-click LeiaSplatViewer.exe
+        4. Press O to open a .ply file
+        5. Right-drag to orbit, scroll wheel to zoom
+
+        Controls:
+        - Right Mouse Drag: Orbit camera
+        - Mouse Wheel: Zoom in/out
+        - C: Toggle point cloud / splat rendering
+        - R: Reset camera
+        - O: Open PLY file
+        - Esc: Exit
+        "@ | Out-File -FilePath "artifacts\LeiaSplatViewer\README.txt" -Encoding utf8
+      shell: powershell
+
+    # Upload LookAroundEyesApp artifact
+    - name: Upload LookAroundEyesApp build
+      uses: actions/upload-artifact@v4
+      with:
+        name: LookAroundEyesApp-windows-x64
+        path: artifacts/LookAroundEyesApp/
+        retention-days: 90
+        if-no-files-found: error
+
+    # Upload LeiaSplatViewer artifact
+    - name: Upload LeiaSplatViewer build
+      uses: actions/upload-artifact@v4
+      with:
+        name: LeiaSplatViewer-windows-x64
+        path: artifacts/LeiaSplatViewer/
+        retention-days: 90
+        if-no-files-found: error
+
+    # Summary
+    - name: Build Summary
+      run: |
+        Write-Host "========================================" -ForegroundColor Green
+        Write-Host "Build completed successfully!" -ForegroundColor Green
+        Write-Host "========================================" -ForegroundColor Green
+        Write-Host ""
+        Write-Host "Artifacts created:" -ForegroundColor Cyan
+        Write-Host "  - LookAroundEyesApp-windows-x64.zip" -ForegroundColor Yellow
+        Write-Host "  - LeiaSplatViewer-windows-x64.zip" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "Download from:" -ForegroundColor Cyan
+        Write-Host "  GitHub Actions -> This workflow run -> Artifacts section" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "Next steps:" -ForegroundColor Cyan
+        Write-Host "  1. Download artifact ZIPs" -ForegroundColor White
+        Write-Host "  2. Extract on Windows machine" -ForegroundColor White
+        Write-Host "  3. Ensure Leia SR Platform Service is running" -ForegroundColor White
+        Write-Host "  4. Run the .exe files" -ForegroundColor White
+        Write-Host "========================================" -ForegroundColor Green
+      shell: powershell
