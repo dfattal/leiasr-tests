@@ -5,18 +5,13 @@
 
 #pragma once
 
-// Pragma warning isolation for SR SDK headers (SRHydra pattern)
-#pragma warning(push)
-#pragma warning(disable : 4201)  // nonstandard extension: nameless struct/union
-#pragma warning(disable : 5208)  // unnamed class used in typedef name cannot declare members
-#pragma warning(disable : 4505)  // unreferenced local function has been removed
+// SR SDK includes (following SDK examples - no pragma warnings)
 #include "sr/sense/eyetracker/eyetracker.h"
 #include "sr/sense/eyetracker/eyepairlistener.h"
 #include "sr/sense/core/inputstream.h"
 #include "sr/weaver/dx11weaver.h"
-#pragma warning(pop)
 
-// Include Math.h AFTER SR SDK headers (SRHydra pattern)
+// Include Math.h AFTER SR SDK headers (SDK example pattern)
 #include "Math.h"
 
 // EyePairListener implementation for callback-based eye tracking

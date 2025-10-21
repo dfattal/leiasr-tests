@@ -9,15 +9,10 @@
 #include <d3dcompiler.h>
 #include <commdlg.h>
 
-// Leia SR includes with pragma warning isolation (SRHydra pattern)
-#pragma warning(push)
-#pragma warning(disable : 4201)  // nonstandard extension: nameless struct/union
-#pragma warning(disable : 5208)  // unnamed class used in typedef name cannot declare members
-#pragma warning(disable : 4505)  // unreferenced local function has been removed
+// Leia SR includes (following SDK examples - no pragma warnings)
 #include "sr/context.h"
 #include "sr/isr_displays.h"
 #include "sr/weaver/dx11weaver.h"
-#pragma warning(pop)
 
 // App includes - safe to include after pragma pop
 #include "Math.h"
