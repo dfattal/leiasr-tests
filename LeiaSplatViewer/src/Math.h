@@ -5,6 +5,9 @@
 
 #pragma once
 
+// Include C math header first to ensure C functions are declared in global namespace
+// This works around conflicts with the Leia SR SDK headers
+#include <math.h>
 #include <cmath>
 #include <algorithm>
 
