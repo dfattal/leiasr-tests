@@ -12,12 +12,13 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-// Math utility namespace - uses C math functions (matches SDK examples)
+// Math utility namespace - uses double-precision C math functions (CRITICAL: matches SDK examples!)
+// The SR SDK breaks float versions (sqrtf, cosf, sinf) but NOT double versions (sqrt, cos, sin)
 namespace SafeMath {
-    inline float Sqrt(float x) { return sqrtf(x); }
-    inline float Cos(float x) { return cosf(x); }
-    inline float Sin(float x) { return sinf(x); }
-    inline float Atan2(float y, float x) { return atan2f(y, x); }
+    inline float Sqrt(float x) { return (float)sqrt(x); }
+    inline float Cos(float x) { return (float)cos(x); }
+    inline float Sin(float x) { return (float)sin(x); }
+    inline float Atan2(float y, float x) { return (float)atan2(y, x); }
 }
 
 #pragma pack(push, 1)
