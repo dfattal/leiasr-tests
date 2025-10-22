@@ -263,7 +263,7 @@ inline mat4f CalculateViewProjectionMatrix(const vec3f& eyePosition,
     float t = vec3f::dot(vu, va) * znear / distance;
 
     // Asymmetric frustum matrix
-    mat4f frustum = mat4f::frustum(l, r, b, t, znear, zfar);
+    mat4f frustum = mat4f::perspective(l, r, b, t, znear, zfar);
 
     // Translation to move eye to origin
     mat4f translate = mat4f::translation(-eyePosition);
