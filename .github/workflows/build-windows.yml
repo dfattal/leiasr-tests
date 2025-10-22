@@ -33,7 +33,7 @@ jobs:
     - name: Build LookAroundEyesApp (x64 Release)
       run: |
         cd LookAroundEyesApp
-        cmake --build build --config Release
+        cmake --build build --config Release --verbose
       shell: cmd
 
     # Build LeiaSplatViewer
