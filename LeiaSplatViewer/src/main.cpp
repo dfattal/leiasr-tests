@@ -9,10 +9,11 @@
 #include <d3dcompiler.h>
 #include <commdlg.h>
 
-// Leia SR includes (following SDK examples - no pragma warnings)
-#include "sr/context.h"
-#include "sr/isr_displays.h"
+// Leia SR includes
+#include "sr/management/srcontext.h"
+#include "sr/world/display/display.h"
 #include "sr/weaver/dx11weaver.h"
+#include "sr/utility/exception.h"
 
 // App includes - safe to include after pragma pop
 #include "leia_math.h"
@@ -365,15 +366,31 @@ bool InitializeDirectX()
 
 bool InitializeSR()
 {
-    // This is a simplified SR initialization
-    // Full implementation would match LookAroundEyesApp
-    g_srContext = SR::SRContext::create();
+    // Create SR context with exception handling
+    try
+    {
+        g_srContext = SR::SRContext::create();
+    }
+    catch (SR::ServerNotAvailableException& e)
+    {
+        MessageBox(NULL, "Leia SR Platform Service not available. Please ensure it's running.", "SR Error", MB_ICONERROR);
+        return false;
+    }
+    catch (std::exception& e)
+    {
+        MessageBox(NULL, e.what(), "SR Error", MB_ICONERROR);
+        return false;
+    }
+
     if (!g_srContext)
         return false;
 
     SR::IDisplay* display = SR::GetMainSRDisplay(*g_srContext);
     if (!display)
+    {
+        MessageBox(NULL, "No Leia SR display found", "SR Error", MB_ICONERROR);
         return false;
+    }
 
     g_viewWidth = display->getRecommendedViewsTextureWidth();
     g_viewHeight = display->getRecommendedViewsTextureHeight();
@@ -392,13 +409,20 @@ bool InitializeSR()
     g_d3dDevice->CreateTexture2D(&texDesc, nullptr, &g_viewTexture);
     g_d3dDevice->CreateRenderTargetView(g_viewTexture, nullptr, &g_viewRTV);
 
+    // Create shader resource view for the view texture
+    ID3D11ShaderResourceView* viewSRV = nullptr;
+    g_d3dDevice->CreateShaderResourceView(g_viewTexture, nullptr, &viewSRV);
+
     // Create weaver
-    g_srWeaver = SR::dx11WeaverCreate(*g_srContext, g_d3dDevice);
-    if (!g_srWeaver)
+    WeaverErrorCode result = SR::CreateDX11Weaver(g_srContext, g_d3dContext, g_hWnd, &g_srWeaver);
+    if (result != WeaverErrorCode::WeaverSuccess)
         return false;
 
-    g_srWeaver->setSourceViews(g_viewTexture, g_viewWidth, g_viewHeight);
-    g_srWeaver->setTargetSurface(nullptr); // Will use backbuffer
+    // Configure weaver
+    g_srWeaver->setInputViewTexture(viewSRV, g_viewWidth, g_viewHeight, DXGI_FORMAT_R8G8B8A8_UNORM);
+    g_srWeaver->setContext(g_d3dContext);
+
+    viewSRV->Release();
 
     return true;
 }
@@ -559,8 +583,8 @@ void Cleanup()
 
     if (g_viewRTV) g_viewRTV->Release();
     if (g_viewTexture) g_viewTexture->Release();
-    if (g_srWeaver) g_srWeaver->release();
-    if (g_srContext) g_srContext->release();
+    if (g_srWeaver) g_srWeaver->destroy();
+    if (g_srContext) SR::SRContext::deleteSRContext(g_srContext);
 
     if (g_backbufferRTV) g_backbufferRTV->Release();
     if (g_swapChain) g_swapChain->Release();
