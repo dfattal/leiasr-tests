@@ -401,7 +401,7 @@ bool InitializeSR(double maxWaitTime)
     g_d3dDevice->CreateDepthStencilView(g_viewDepthTexture, nullptr, &g_viewDSV);
 
     // Create weaver
-    WeaverErrorCode result = SR::CreateDX11Weaver(*g_srContext, g_d3dContext, g_hWnd, &g_srWeaver);
+    WeaverErrorCode result = SR::CreateDX11Weaver(g_srContext, g_d3dContext, g_hWnd, &g_srWeaver);
     if (result != WeaverErrorCode::WeaverSuccess)
     {
         MessageBox(NULL, "Failed to create weaver", g_windowTitle, MB_ICONERROR);

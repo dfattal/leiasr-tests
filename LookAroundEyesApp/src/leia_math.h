@@ -2,6 +2,10 @@
 
 #include <math.h>
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 #pragma pack(push,1)
 
 struct vec3f
@@ -223,3 +227,46 @@ struct mat4f
 };
 
 #pragma pack(pop)
+
+// Generalized perspective projection (Kooima 2009) with virtual screen positioning
+inline mat4f CalculateViewProjectionMatrix(const vec3f& eyePosition,
+                                            float screenWidthMM,
+                                            float screenHeightMM,
+                                            float virtualScreenDepthMM)
+{
+    const float znear = 0.1f;
+    const float zfar = 10000.0f;
+
+    // CRITICAL: Virtual screen is positioned at virtualScreenDepthMM (typically 400mm)
+    // This places the screen plane in the middle of our scene
+    vec3f pa(-screenWidthMM / 2.0f, screenHeightMM / 2.0f, virtualScreenDepthMM);  // Top-left
+    vec3f pb(screenWidthMM / 2.0f, screenHeightMM / 2.0f, virtualScreenDepthMM);   // Top-right
+    vec3f pc(-screenWidthMM / 2.0f, -screenHeightMM / 2.0f, virtualScreenDepthMM); // Bottom-left
+
+    // Screen basis vectors
+    vec3f vr(1.0f, 0.0f, 0.0f);  // Right
+    vec3f vu(0.0f, 1.0f, 0.0f);  // Up
+    vec3f vn(0.0f, 0.0f, 1.0f);  // Normal (toward viewer)
+
+    // Vectors from eye to screen corners
+    vec3f va = pa - eyePosition;
+    vec3f vb = pb - eyePosition;
+    vec3f vc = pc - eyePosition;
+
+    // Distance from eye to screen plane
+    float distance = -vec3f::dot(va, vn);
+
+    // Frustum extents at near plane
+    float l = vec3f::dot(vr, va) * znear / distance;
+    float r = vec3f::dot(vr, vb) * znear / distance;
+    float b = vec3f::dot(vu, vc) * znear / distance;
+    float t = vec3f::dot(vu, va) * znear / distance;
+
+    // Asymmetric frustum matrix
+    mat4f frustum = mat4f::frustum(l, r, b, t, znear, zfar);
+
+    // Translation to move eye to origin
+    mat4f translate = mat4f::translation(-eyePosition);
+
+    return frustum * translate;
+}
