@@ -20,7 +20,7 @@
 #include "sr/weaver/dx11weaver.h"
 
 // App includes - safe to include after pragma pop
-#include "Math.h"
+#include "leia_math.h"
 #include "DualEyeTracker.h"
 #include "Scene.h"
 #include "HUD.h"

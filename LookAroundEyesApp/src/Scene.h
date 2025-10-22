@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Math.h"
+#include "leia_math.h"
 #include <d3d11.h>
 #include <vector>
 

@@ -29,7 +29,7 @@ add_executable(LeiaSplatViewer
     ${PROJECT_SOURCE_DIR}/src/OrbitCamera.h
     ${PROJECT_SOURCE_DIR}/src/SplatLoader.cpp
     ${PROJECT_SOURCE_DIR}/src/SplatLoader.h
-    ${PROJECT_SOURCE_DIR}/src/Math.h
+    ${PROJECT_SOURCE_DIR}/src/leia_math.h
 )
 
 target_include_directories(LeiaSplatViewer PRIVATE

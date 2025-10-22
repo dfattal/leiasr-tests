@@ -30,7 +30,7 @@ add_executable(LookAroundEyesApp
     ${PROJECT_SOURCE_DIR}/src/DualEyeTracker.h
     ${PROJECT_SOURCE_DIR}/src/HUD.cpp
     ${PROJECT_SOURCE_DIR}/src/HUD.h
-    ${PROJECT_SOURCE_DIR}/src/Math.h
+    ${PROJECT_SOURCE_DIR}/src/leia_math.h
     ${PROJECT_SOURCE_DIR}/src/Scene.cpp
     ${PROJECT_SOURCE_DIR}/src/Scene.h
 )

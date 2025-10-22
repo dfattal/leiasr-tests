@@ -15,7 +15,7 @@
 #include "sr/weaver/dx11weaver.h"
 
 // App includes - safe to include after pragma pop
-#include "Math.h"
+#include "leia_math.h"
 #include "SplatLoader.h"
 #include "OrbitCamera.h"
 

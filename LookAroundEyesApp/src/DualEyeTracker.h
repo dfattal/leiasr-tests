@@ -12,7 +12,7 @@
 #include "sr/weaver/dx11weaver.h"
 
 // Include Math.h AFTER SR SDK headers (SDK example pattern)
-#include "Math.h"
+#include "leia_math.h"
 
 // EyePairListener implementation for callback-based eye tracking
 class SREyePairListener : public SR::EyePairListener
