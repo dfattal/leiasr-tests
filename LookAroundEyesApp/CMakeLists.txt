@@ -63,8 +63,10 @@ target_link_libraries(LookAroundEyesApp PRIVATE
 )
 
 # Copy SDK DLLs to output directory
-add_custom_command(TARGET LookAroundEyesApp POST_BUILD COMMAND
-    ${CMAKE_COMMAND} -E copy_directory
-    ${LEIASR_SDKROOT}/bin/x64
-    $<TARGET_FILE_DIR:LookAroundEyesApp>
+add_custom_command(TARGET LookAroundEyesApp POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo "Copying SDK DLLs from ${LEIASR_SDKROOT}/bin/x64 to $<TARGET_FILE_DIR:LookAroundEyesApp>"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${LEIASR_SDKROOT}/bin/x64"
+        "$<TARGET_FILE_DIR:LookAroundEyesApp>"
+    VERBATIM
 )
