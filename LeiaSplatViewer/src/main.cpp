@@ -264,9 +264,24 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         {
             // Open file
             std::string plyPath = OpenFileDialog();
-            if (!plyPath.empty() && LoadPLYFile(plyPath.c_str()))
+            if (!plyPath.empty())
             {
-                CreateSplatBuffers();
+                if (LoadPLYFile(plyPath.c_str()))
+                {
+                    CreateSplatBuffers();
+                    char msg[512];
+                    sprintf_s(msg, "Loaded %zu splats successfully", g_splatLoader->getSplatCount());
+                    MessageBoxA(g_hWnd, msg, "PLY Loaded", MB_OK | MB_ICONINFORMATION);
+                }
+                else
+                {
+                    std::string errorMsg = "Failed to load PLY file";
+                    if (g_splatLoader && !g_splatLoader->getErrorMessage().empty())
+                    {
+                        errorMsg += ":\n" + g_splatLoader->getErrorMessage();
+                    }
+                    MessageBoxA(g_hWnd, errorMsg.c_str(), "Load Error", MB_OK | MB_ICONERROR);
+                }
             }
         }
         return 0;
@@ -504,8 +519,11 @@ void CreateSplatBuffers()
     vec3f size = maxBounds - minBounds;
     float maxDim = std::max(std::max(size.x, size.y), size.z);
 
+    // Ensure reasonable distance (handle edge cases)
+    float distance = std::max(maxDim * 2.0f, 1.0f);
+
     g_camera->setTarget(center);
-    g_camera->setDistance(maxDim * 2.0f);
+    g_camera->setDistance(distance);
 }
 
 void Render()
@@ -535,7 +553,8 @@ void Render()
 
         // Get view-projection matrix
         float aspect = (float)g_viewWidth / (float)g_viewHeight;
-        mat4f viewProj = g_camera->getViewProjectionMatrix(45.0f * (float)M_PI / 180.0f, aspect, 0.1f, 10000.0f);
+        // Use large far plane to handle any scene size
+        mat4f viewProj = g_camera->getViewProjectionMatrix(45.0f * (float)M_PI / 180.0f, aspect, 0.01f, 100000.0f);
 
         // Update constant buffer
         D3D11_MAPPED_SUBRESOURCE mapped;

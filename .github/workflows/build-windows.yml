@@ -132,16 +132,22 @@ jobs:
         1. Extract this ZIP to a folder
         2. Ensure Leia SR Platform Service is running
         3. Double-click LeiaSplatViewer.exe
-        4. Press O to open a .ply file
-        5. Right-drag to orbit, scroll wheel to zoom
+        4. Press O to open a Gaussian Splat .ply file
+        5. A success message will appear when loaded
+        6. Right-drag to orbit, scroll wheel to zoom
 
         Controls:
+        - O: Open PLY file (Gaussian Splat format)
         - Right Mouse Drag: Orbit camera
         - Mouse Wheel: Zoom in/out
         - C: Toggle point cloud / splat rendering
         - R: Reset camera
-        - O: Open PLY file
         - Esc: Exit
+
+        Notes:
+        - Supports Gaussian Splat PLY files with spherical harmonics
+        - Camera auto-frames to loaded model
+        - Loading status shown in message boxes
         "@ | Out-File -FilePath "artifacts\LeiaSplatViewer\README.txt" -Encoding utf8
       shell: powershell
 

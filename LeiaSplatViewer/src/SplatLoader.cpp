@@ -243,20 +243,43 @@ bool SplatLoader::parseBinaryData(FILE* file)
             readProp(propName, splat.sh_rest[j]);
         }
 
-        // Fallback color (RGB)
-        float r = 0.5f, g = 0.5f, b = 0.5f;
-        readProp("red", r);
-        readProp("green", g);
-        readProp("blue", b);
+        // Compute color from spherical harmonics DC component
+        // SH_C0 = sqrt(1/(4*pi)) = 0.28209479177387814
+        const float SH_C0 = 0.28209479177387814f;
 
-        // Convert color from [0, 255] to [0, 1] if stored as uchar
-        const PLYProperty* redProp = findProperty("red");
-        if (redProp && redProp->type == PLYProperty::UCHAR)
+        // Check if we have SH DC properties
+        bool hasSH = (findProperty("f_dc_0") != nullptr);
+
+        float r, g, b;
+        if (hasSH)
         {
-            r /= 255.0f;
-            g /= 255.0f;
-            b /= 255.0f;
+            // Convert from SH to RGB (Gaussian splatting standard)
+            r = 0.5f + SH_C0 * splat.sh_dc.x;
+            g = 0.5f + SH_C0 * splat.sh_dc.y;
+            b = 0.5f + SH_C0 * splat.sh_dc.z;
         }
+        else
+        {
+            // Fallback: try to read RGB directly
+            r = 0.5f; g = 0.5f; b = 0.5f;
+            readProp("red", r);
+            readProp("green", g);
+            readProp("blue", b);
+
+            // Convert color from [0, 255] to [0, 1] if stored as uchar
+            const PLYProperty* redProp = findProperty("red");
+            if (redProp && redProp->type == PLYProperty::UCHAR)
+            {
+                r /= 255.0f;
+                g /= 255.0f;
+                b /= 255.0f;
+            }
+        }
+
+        // Clamp to valid range
+        r = std::max(0.0f, std::min(1.0f, r));
+        g = std::max(0.0f, std::min(1.0f, g));
+        b = std::max(0.0f, std::min(1.0f, b));
 
         splat.color = vec3f(r, g, b);
 
