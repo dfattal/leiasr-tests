@@ -47,7 +47,7 @@ jobs:
     - name: Build LeiaSplatViewer (x64 Release)
       run: |
         cd LeiaSplatViewer
-        cmake --build build --config Release
+        cmake --build build --config Release --verbose
       shell: cmd
 
     # Package LookAroundEyesApp artifacts
