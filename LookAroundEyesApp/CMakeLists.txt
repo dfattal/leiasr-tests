@@ -33,8 +33,6 @@ add_executable(LookAroundEyesApp
     ${PROJECT_SOURCE_DIR}/src/Math.h
     ${PROJECT_SOURCE_DIR}/src/Scene.cpp
     ${PROJECT_SOURCE_DIR}/src/Scene.h
-    ${PROJECT_SOURCE_DIR}/shaders/VertexShader.hlsl
-    ${PROJECT_SOURCE_DIR}/shaders/PixelShader.hlsl
 )
 
 target_include_directories(LookAroundEyesApp PRIVATE

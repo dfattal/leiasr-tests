@@ -30,12 +30,6 @@ add_executable(LeiaSplatViewer
     ${PROJECT_SOURCE_DIR}/src/SplatLoader.cpp
     ${PROJECT_SOURCE_DIR}/src/SplatLoader.h
     ${PROJECT_SOURCE_DIR}/src/Math.h
-    ${PROJECT_SOURCE_DIR}/shaders/PointCloud_VS.hlsl
-    ${PROJECT_SOURCE_DIR}/shaders/PointCloud_PS.hlsl
-    ${PROJECT_SOURCE_DIR}/shaders/Splat_VS.hlsl
-    ${PROJECT_SOURCE_DIR}/shaders/Splat_GS.hlsl
-    ${PROJECT_SOURCE_DIR}/shaders/Splat_PS.hlsl
-    ${PROJECT_SOURCE_DIR}/shaders/SplatSort_CS.hlsl
 )
 
 target_include_directories(LeiaSplatViewer PRIVATE
