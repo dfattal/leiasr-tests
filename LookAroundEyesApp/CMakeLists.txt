@@ -7,6 +7,14 @@ project(LookAroundEyesApp)
 
 set(LEIASR_SDKROOT "$ENV{LEIASR_SDKROOT}" CACHE PATH "Path to LEIASR SDK root")
 
+# Fallback to relative path if environment variable not set
+if(NOT LEIASR_SDKROOT OR LEIASR_SDKROOT STREQUAL "")
+    set(LEIASR_SDKROOT "${CMAKE_CURRENT_SOURCE_DIR}/../simulatedreality-SDK-1.34.8.31132-win64-Release" CACHE PATH "Path to LEIASR SDK root" FORCE)
+endif()
+
+# Convert to absolute path
+get_filename_component(LEIASR_SDKROOT "${LEIASR_SDKROOT}" ABSOLUTE)
+
 # Tell CMake to look here for find_package()
 list(APPEND CMAKE_PREFIX_PATH "${LEIASR_SDKROOT}/lib/cmake")
 
