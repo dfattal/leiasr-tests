@@ -3,12 +3,21 @@
 **Date**: October 2025
 **Repository**: dfattal/leiasr-tests
 **Build System**: GitHub Actions (Windows)
+**SDK**: Included in repository (1.34.8.31132-win64-Release)
+
+> **Note**: See `GITHUB_ACTIONS_GUIDE.md` for complete build system documentation.
 
 ---
 
 ## Summary
 
 All three applications have been verified to include **all required runtime dependencies** in their GitHub Actions artifacts. Each artifact is ready to run on a Windows machine with the Leia SR Platform Service installed.
+
+### SDK Distribution
+The Leia SR SDK is **committed directly to the repository** (not downloaded from URL):
+- Located at: `simulatedreality-SDK-1.34.8.31132-win64-Release/`
+- Size: ~32 MB (compressed in Git)
+- Ensures reproducible builds without external dependencies
 
 ---
 
