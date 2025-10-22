@@ -63,11 +63,15 @@ target_link_libraries(LeiaSplatViewer PRIVATE
     d3dcompiler
 )
 
-# Copy SDK DLLs to output directory
-add_custom_command(TARGET LeiaSplatViewer POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E echo "Copying SDK DLLs from ${LEIASR_SDKROOT}/bin/x64 to $<TARGET_FILE_DIR:LeiaSplatViewer>"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${LEIASR_SDKROOT}/bin/x64"
-        "$<TARGET_FILE_DIR:LeiaSplatViewer>"
-    VERBATIM
-)
+# Copy SDK DLLs to output directory (if bin/x64 exists)
+if(EXISTS "${LEIASR_SDKROOT}/bin/x64")
+    add_custom_command(TARGET LeiaSplatViewer POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E echo "Copying SDK DLLs from ${LEIASR_SDKROOT}/bin/x64"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${LEIASR_SDKROOT}/bin/x64"
+            "$<TARGET_FILE_DIR:LeiaSplatViewer>"
+        VERBATIM
+    )
+else()
+    message(WARNING "SDK DLL directory not found: ${LEIASR_SDKROOT}/bin/x64 - DLLs will not be copied")
+endif()
