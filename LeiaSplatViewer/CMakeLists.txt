@@ -40,12 +40,6 @@ add_executable(LeiaSplatViewer
     ${PROJECT_SOURCE_DIR}/src/leia_math.h
 )
 
-target_include_directories(LeiaSplatViewer PRIVATE
-    ${PROJECT_SOURCE_DIR}/src
-    ${LEIASR_SDKROOT}/include
-    ${LEIASR_SDKROOT}/third_party/OpenCV/include
-)
-
 # Set C++17 standard
 set_target_properties(LeiaSplatViewer PROPERTIES
     CXX_STANDARD 17
@@ -61,6 +55,12 @@ target_link_libraries(LeiaSplatViewer PRIVATE
     srDirectX${BUILD_PLATFORM}::srDirectX
     d3d11
     d3dcompiler
+)
+
+target_include_directories(LeiaSplatViewer PRIVATE
+    ${PROJECT_SOURCE_DIR}/src
+    ${LEIASR_SDKROOT}/include
+    ${LEIASR_SDKROOT}/third_party/OpenCV/include
 )
 
 # Copy SDK DLLs to output directory (if bin/x64 exists)
