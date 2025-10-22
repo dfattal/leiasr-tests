@@ -16,33 +16,39 @@ jobs:
       with:
         lfs: true  # In case SDK uses Git LFS
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.3
-
-    - name: Display MSBuild version
-      run: msbuild -version
+    - name: Setup CMake
+      run: |
+        echo "CMake version:"
+        cmake --version
+      shell: cmd
 
     # Build LookAroundEyesApp
+    - name: Configure LookAroundEyesApp
+      run: |
+        cd LookAroundEyesApp
+        set LEIASR_SDKROOT=%CD%\..\simulatedreality-SDK-1.34.8.31132-win64-Release
+        cmake -B build -G "Visual Studio 17 2022" -A x64
+      shell: cmd
+
     - name: Build LookAroundEyesApp (x64 Release)
       run: |
-        msbuild LookAroundEyesApp\LookAroundEyesApp.vcxproj `
-          /p:Configuration=Release `
-          /p:Platform=x64 `
-          /p:OutDir=${{ github.workspace }}\build\LookAroundEyesApp\ `
-          /m `
-          /v:minimal
-      shell: powershell
+        cd LookAroundEyesApp
+        cmake --build build --config Release
+      shell: cmd
 
     # Build LeiaSplatViewer
+    - name: Configure LeiaSplatViewer
+      run: |
+        cd LeiaSplatViewer
+        set LEIASR_SDKROOT=%CD%\..\simulatedreality-SDK-1.34.8.31132-win64-Release
+        cmake -B build -G "Visual Studio 17 2022" -A x64
+      shell: cmd
+
     - name: Build LeiaSplatViewer (x64 Release)
       run: |
-        msbuild LeiaSplatViewer\LeiaSplatViewer.vcxproj `
-          /p:Configuration=Release `
-          /p:Platform=x64 `
-          /p:OutDir=${{ github.workspace }}\build\LeiaSplatViewer\ `
-          /m `
-          /v:minimal
-      shell: powershell
+        cd LeiaSplatViewer
+        cmake --build build --config Release
+      shell: cmd
 
     # Package LookAroundEyesApp artifacts
     - name: Package LookAroundEyesApp
@@ -50,11 +56,11 @@ jobs:
         New-Item -ItemType Directory -Force -Path artifacts\LookAroundEyesApp
 
         # Copy executable
-        Copy-Item -Path "build\LookAroundEyesApp\LookAroundEyesApp.exe" `
+        Copy-Item -Path "LookAroundEyesApp\build\Release\LookAroundEyesApp.exe" `
                   -Destination "artifacts\LookAroundEyesApp\"
 
-        # Copy DLLs (from SDK bin directory, already copied by post-build event)
-        Copy-Item -Path "build\LookAroundEyesApp\*.dll" `
+        # Copy DLLs (from SDK bin directory, copied by CMake post-build event)
+        Copy-Item -Path "LookAroundEyesApp\build\Release\*.dll" `
                   -Destination "artifacts\LookAroundEyesApp\" `
                   -ErrorAction SilentlyContinue
 
@@ -95,11 +101,11 @@ jobs:
         New-Item -ItemType Directory -Force -Path artifacts\LeiaSplatViewer
 
         # Copy executable
-        Copy-Item -Path "build\LeiaSplatViewer\LeiaSplatViewer.exe" `
+        Copy-Item -Path "LeiaSplatViewer\build\Release\LeiaSplatViewer.exe" `
                   -Destination "artifacts\LeiaSplatViewer\"
 
         # Copy DLLs
-        Copy-Item -Path "build\LeiaSplatViewer\*.dll" `
+        Copy-Item -Path "LeiaSplatViewer\build\Release\*.dll" `
                   -Destination "artifacts\LeiaSplatViewer\" `
                   -ErrorAction SilentlyContinue
 
