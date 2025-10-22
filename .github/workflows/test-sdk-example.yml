@@ -59,9 +59,59 @@ jobs:
       shell: cmd
       continue-on-error: true
 
+    - name: Package SDK example
+      run: |
+        # Create artifact directory
+        New-Item -ItemType Directory -Force -Path artifacts\directx11_weaving_example
+
+        # Copy executable
+        Copy-Item -Path "build_test\directx11_weaving\build\Release\*.exe" `
+                  -Destination "artifacts\directx11_weaving_example\" `
+                  -ErrorAction Stop
+
+        # Copy DLLs
+        Copy-Item -Path "build_test\directx11_weaving\build\Release\*.dll" `
+                  -Destination "artifacts\directx11_weaving_example\" `
+                  -ErrorAction SilentlyContinue
+
+        # Copy required StereoImage.jpg
+        Copy-Item -Path "build_test\directx11_weaving\directx11_weaving\StereoImage.jpg" `
+                  -Destination "artifacts\directx11_weaving_example\" `
+                  -ErrorAction Stop
+
+        # Create README
+        @"
+        DirectX 11 Weaving Example - Windows Build
+        ===========================================
+
+        Built: $((Get-Date).ToString("yyyy-MM-dd HH:mm:ss"))
+        Commit: $env:GITHUB_SHA
+
+        Requirements:
+        - Windows 10/11 x64
+        - Leia SR Platform Service running
+        - Leia SR display connected
+
+        To Run:
+        1. Extract this ZIP to a folder
+        2. Ensure Leia SR Platform Service is running
+        3. Double-click directx11_weaving.exe
+
+        The example demonstrates:
+        - Loading and displaying StereoImage.jpg on the Leia display
+        - Press 'C' to toggle between stereo image mode and spinning 3D cube
+        - Esc: Exit
+
+        Files Included:
+        - directx11_weaving.exe - Main application
+        - StereoImage.jpg - Default stereo image for display
+        - *.dll - SDK runtime dependencies
+        "@ | Out-File -FilePath "artifacts\directx11_weaving_example\README.txt" -Encoding utf8
+      shell: powershell
+
     - name: Upload SDK example build
       uses: actions/upload-artifact@v4
       with:
         name: directx11_weaving_example
-        path: build_test/directx11_weaving/build/Release/*.exe
-        if-no-files-found: warn
+        path: artifacts/directx11_weaving_example/
+        if-no-files-found: error
