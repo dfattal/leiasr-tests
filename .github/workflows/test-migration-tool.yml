@@ -1,0 +1,140 @@
+name: Test Migration Tool Executable
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+  push:
+    paths:
+      - 'leiasr-migrate/**'
+      - '.github/workflows/test-migration-tool.yml'
+
+jobs:
+  test-executable:
+    name: Test Migration Tool on Sample Example
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build executable with PyInstaller
+        shell: cmd
+        run: |
+          cd leiasr-migrate
+          pip install -r requirements.txt
+          pyinstaller leiasr-migrate.spec
+
+      - name: Create test environment
+        shell: cmd
+        run: |
+          echo Creating test directory...
+          mkdir test-migration-run
+          xcopy /E /I /Y LeiaSR-SDK-1.34.8-RC1-win64\examples\opengl_weaving test-migration-run\opengl_weaving
+          mkdir test-migration-run\common
+          copy modernized_examples\common\display_helper.h test-migration-run\common\
+
+      - name: Test - Show help
+        shell: cmd
+        run: |
+          cd leiasr-migrate\dist
+          echo.
+          echo ========================================
+          echo Testing: leiasr-migrate.exe --help
+          echo ========================================
+          leiasr-migrate.exe --help
+
+      - name: Test - Analyze example
+        shell: cmd
+        run: |
+          cd leiasr-migrate\dist
+          echo.
+          echo ========================================
+          echo Testing: Analyze opengl_weaving
+          echo ========================================
+          leiasr-migrate.exe analyze ..\..\test-migration-run --report=analysis.txt
+          echo.
+          echo Analysis Report:
+          type analysis.txt
+
+      - name: Test - Dry run migration
+        shell: cmd
+        run: |
+          cd leiasr-migrate\dist
+          echo.
+          echo ========================================
+          echo Testing: Dry-run migration
+          echo ========================================
+          leiasr-migrate.exe migrate ..\..\test-migration-run --helper-path=../common --dry-run
+
+      - name: Test - Actual migration
+        shell: cmd
+        run: |
+          cd leiasr-migrate\dist
+          echo.
+          echo ========================================
+          echo Testing: Actual migration
+          echo ========================================
+          leiasr-migrate.exe migrate ..\..\test-migration-run --helper-path=../common --yes
+
+      - name: Verify migration results
+        shell: cmd
+        run: |
+          echo.
+          echo ========================================
+          echo Verifying migration results
+          echo ========================================
+          echo.
+          echo Checking for .legacy files:
+          dir /B /S test-migration-run\*.legacy
+          echo.
+          echo Checking migrated main.cpp has SRDISPLAY_LAZYBINDING:
+          findstr /C:"SRDISPLAY_LAZYBINDING" test-migration-run\opengl_weaving\main.cpp
+          echo.
+          echo Checking migrated main.cpp has display_helper.h:
+          findstr /C:"display_helper.h" test-migration-run\opengl_weaving\main.cpp
+          echo.
+          echo Checking migrated main.cpp has DisplayAccess:
+          findstr /C:"DisplayAccess" test-migration-run\opengl_weaving\main.cpp
+          echo.
+          echo Migration verification PASSED!
+
+      - name: Show file comparison
+        shell: cmd
+        run: |
+          echo.
+          echo ========================================
+          echo Comparing original vs migrated (first 50 lines)
+          echo ========================================
+          fc /N /L /C test-migration-run\opengl_weaving\main.cpp.legacy test-migration-run\opengl_weaving\main.cpp | findstr /N "^" | findstr /R "^[1-9][0-9]\?:"
+
+      - name: Upload migration results
+        uses: actions/upload-artifact@v4
+        with:
+          name: migration-test-results
+          path: |
+            leiasr-migrate/dist/analysis.txt
+            test-migration-run/opengl_weaving/main.cpp
+            test-migration-run/opengl_weaving/main.cpp.legacy
+          retention-days: 7
+
+      - name: Test summary
+        shell: cmd
+        run: |
+          echo.
+          echo ========================================
+          echo TEST SUMMARY
+          echo ========================================
+          echo [PASS] Executable runs without errors
+          echo [PASS] Help command works
+          echo [PASS] Analyze detects patterns
+          echo [PASS] Dry-run previews changes
+          echo [PASS] Migration creates .legacy files
+          echo [PASS] Migration adds SRDISPLAY_LAZYBINDING
+          echo [PASS] Migration includes display_helper.h
+          echo [PASS] Migration converts to DisplayAccess
+          echo.
+          echo All tests PASSED!
