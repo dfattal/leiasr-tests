@@ -104,12 +104,13 @@ jobs:
 
       - name: Show file comparison
         shell: cmd
+        continue-on-error: true
         run: |
           echo.
           echo ========================================
-          echo Comparing original vs migrated (first 50 lines)
+          echo Showing first differences between files
           echo ========================================
-          fc /N /L /C test-migration-run\opengl_weaving\opengl_weaving\main.cpp.legacy test-migration-run\opengl_weaving\opengl_weaving\main.cpp | findstr /N "^" | findstr /R "^[1-9][0-9]\?:"
+          fc /N /L /C test-migration-run\opengl_weaving\opengl_weaving\main.cpp.legacy test-migration-run\opengl_weaving\opengl_weaving\main.cpp | more +10
 
       - name: Upload migration results
         uses: actions/upload-artifact@v4
