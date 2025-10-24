@@ -92,13 +92,13 @@ jobs:
           dir /B /S test-migration-run\*.legacy
           echo.
           echo Checking migrated main.cpp has SRDISPLAY_LAZYBINDING:
-          findstr /C:"SRDISPLAY_LAZYBINDING" test-migration-run\opengl_weaving\main.cpp
+          findstr /C:"SRDISPLAY_LAZYBINDING" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp has display_helper.h:
-          findstr /C:"display_helper.h" test-migration-run\opengl_weaving\main.cpp
+          findstr /C:"display_helper.h" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp has DisplayAccess:
-          findstr /C:"DisplayAccess" test-migration-run\opengl_weaving\main.cpp
+          findstr /C:"DisplayAccess" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
           echo.
           echo Migration verification PASSED!
 
@@ -109,7 +109,7 @@ jobs:
           echo ========================================
           echo Comparing original vs migrated (first 50 lines)
           echo ========================================
-          fc /N /L /C test-migration-run\opengl_weaving\main.cpp.legacy test-migration-run\opengl_weaving\main.cpp | findstr /N "^" | findstr /R "^[1-9][0-9]\?:"
+          fc /N /L /C test-migration-run\opengl_weaving\opengl_weaving\main.cpp.legacy test-migration-run\opengl_weaving\opengl_weaving\main.cpp | findstr /N "^" | findstr /R "^[1-9][0-9]\?:"
 
       - name: Upload migration results
         uses: actions/upload-artifact@v4
@@ -117,8 +117,8 @@ jobs:
           name: migration-test-results
           path: |
             leiasr-migrate/dist/analysis.txt
-            test-migration-run/opengl_weaving/main.cpp
-            test-migration-run/opengl_weaving/main.cpp.legacy
+            test-migration-run/opengl_weaving/opengl_weaving/main.cpp
+            test-migration-run/opengl_weaving/opengl_weaving/main.cpp.legacy
           retention-days: 7
 
       - name: Test summary
