@@ -1,0 +1,74 @@
+name: Build Migration Tool Executable
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+  push:
+    paths:
+      - 'leiasr-migrate/**'
+      - '.github/workflows/build-migration-tool.yml'
+
+jobs:
+  build-windows:
+    name: Build Windows Executable
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        shell: cmd
+        run: |
+          cd leiasr-migrate
+          pip install -r requirements.txt
+
+      - name: Build executable with PyInstaller
+        shell: cmd
+        run: |
+          cd leiasr-migrate
+          pyinstaller leiasr-migrate.spec
+
+      - name: Test executable
+        shell: cmd
+        run: |
+          cd leiasr-migrate\dist
+          leiasr-migrate.exe --help
+
+      - name: Upload executable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: leiasr-migrate-windows
+          path: leiasr-migrate/dist/leiasr-migrate.exe
+          retention-days: 30
+
+      - name: Create release info
+        shell: cmd
+        run: |
+          cd leiasr-migrate\dist
+          echo LeiaSR Display API Migration Tool > README.txt
+          echo ======================================= >> README.txt
+          echo. >> README.txt
+          echo Version: 1.0.0 >> README.txt
+          echo Built: %date% %time% >> README.txt
+          echo. >> README.txt
+          echo Usage: >> README.txt
+          echo   leiasr-migrate.exe analyze ^<path^> >> README.txt
+          echo   leiasr-migrate.exe migrate ^<path^> --helper-path=../common >> README.txt
+          echo. >> README.txt
+          echo For full documentation, see: >> README.txt
+          echo   https://github.com/leiasr-tests/leiasr-migrate/README.md >> README.txt
+
+      - name: Upload release bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: leiasr-migrate-release
+          path: |
+            leiasr-migrate/dist/leiasr-migrate.exe
+            leiasr-migrate/dist/README.txt
+            leiasr-migrate/README.md
+          retention-days: 90
