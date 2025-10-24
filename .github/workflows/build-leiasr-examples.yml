@@ -36,6 +36,7 @@ jobs:
           - lenshints
           - predictingeyetracker
           - systemsense
+          - parallax_toggle
 
     steps:
     - name: Checkout repository
