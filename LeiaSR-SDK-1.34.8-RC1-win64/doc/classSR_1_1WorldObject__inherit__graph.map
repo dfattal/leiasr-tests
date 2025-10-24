@@ -1,0 +1,5 @@
+<map id="SR::WorldObject" name="SR::WorldObject">
+<area shape="rect" id="node1" title="Class representing both real and virtual objects as nodes in the World tree." alt="" coords="48,5,168,32"/>
+<area shape="rect" id="node2" href="$classSR_1_1Display.html" title="Class of WorldObject representing the SR display in real space." alt="" coords="5,80,96,107"/>
+<area shape="rect" id="node3" href="$classSR_1_1Screen.html" title="Class of WorldObject representing the screen in real space." alt="" coords="121,80,210,107"/>
+</map>

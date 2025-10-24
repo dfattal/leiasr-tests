@@ -1,0 +1,5 @@
+<map id="SR::SwitchableLensHint" name="SR::SwitchableLensHint">
+<area shape="rect" id="node1" title="Pure virtual interface for controlling switchable lenses from applications." alt="" coords="5,171,168,197"/>
+<area shape="rect" id="node2" href="$classSR_1_1Sense.html" title="Class of objects dealing with Streams &#160;of data." alt="" coords="44,95,129,121"/>
+<area shape="rect" id="node3" href="$classSR_1_1Transformation.html" title="Class of objects defining the relation between different coordinate systems." alt="" coords="20,5,153,32"/>
+</map>

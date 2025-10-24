@@ -1,0 +1,12 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classSR_1_1IDestroyable.html" title="Interface for objects that can be destroyed." alt="" coords="200,291,320,318"/>
+<area shape="rect" id="node2" href="$classSR_1_1IDX10Weaver1.html" title="class to be used for weaving in DirectX 10 applications" alt="" coords="380,241,511,267"/>
+<area shape="rect" id="node3" href="$classSR_1_1IDX11Weaver1.html" title="class to be used for weaving in DirectX 11 applications" alt="" coords="380,190,511,217"/>
+<area shape="rect" id="node4" href="$classSR_1_1IDX12Weaver1.html" title="class to be used for weaving in DirectX 12 applications" alt="" coords="380,291,511,318"/>
+<area shape="rect" id="node5" href="$classSR_1_1IDX9Weaver1.html" title="class to be used for weaving in DirectX 9 applications" alt="" coords="383,342,507,369"/>
+<area shape="rect" id="node6" href="$classSR_1_1IGLWeaver1.html" title="class to be used for weaving in OpenGL applications" alt="" coords="386,139,505,166"/>
+<area shape="rect" id="node7" href="$classSR_1_1IQueryInterface.html" title="Interface for querying interfaces with a specific type." alt="" coords="5,165,140,191"/>
+<area shape="rect" id="node8" href="$classSR_1_1IDisplay.html" title="Interface representing an SR display." alt="" coords="213,38,307,65"/>
+<area shape="rect" id="node9" href="$classSR_1_1IDisplayManager.html" title="Interface for managing SR displays." alt="" coords="188,89,332,115"/>
+<area shape="rect" id="node10" href="$classSR_1_1IWeaverBase1.html" title="Weaver base class for all graphics APIs." alt="" coords="195,241,325,267"/>
+</map>

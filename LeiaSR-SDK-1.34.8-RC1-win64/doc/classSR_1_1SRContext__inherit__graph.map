@@ -1,0 +1,4 @@
+<map id="SR::SRContext" name="SR::SRContext">
+<area shape="rect" id="node1" title="Maintains WorldObject and Sense objects during the application lifetime." alt="" coords="5,80,116,107"/>
+<area shape="rect" id="node2" href="$classSR_1_1Receiver.html" title="Interface to be used to enable receiving SR_packet from other SR applications." alt="" coords="12,5,109,32"/>
+</map>

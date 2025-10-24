@@ -1,0 +1,111 @@
+html {
+  --primary-color: #AEC6FF;
+  --primary-dark-color: #1dcdb4;
+  --primary-light-color: #B742E1;
+  --primary-lighter-color: #151F30;
+  --primary-lightest-color: #081223;
+
+  --box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .35);
+
+  --odd-color: rgba(0, 0, 0, .1);
+
+  --menu-selected-background: rgba(0, 0, 0, .4);
+
+  --page-background-color: #151F30;
+  --page-foreground-color: #F2F2F2;
+  --page-secondary-foreground-color: #859399;
+  --separator-color: #000000;
+  --side-nav-background: #252628;
+
+  --code-background: #2a2c2f;
+
+  --tablehead-background: #2a2c2f;
+
+  --blockquote-background: #1f2022;
+  --blockquote-foreground: #77848a;
+
+  --warning-color: #b61825;
+  --warning-color-dark: #510a02;
+  --warning-color-darker: #f5b1aa;
+  --note-color: rgb(255, 183, 0);
+  --note-color-dark: #9f7300;
+  --note-color-darker: #fff6df;
+  --deprecated-color: rgb(88, 90, 96);
+  --deprecated-color-dark: #262e37;
+  --deprecated-color-darker: #a0a5b0;
+  --bug-color: rgb(248, 113, 0);
+  --bug-color-dark: #812a00;
+  --bug-color-darker: #ffd3be;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light-mode) {
+    --primary-color: #AEC6FF;
+    --primary-dark-color: #1dcdb4;
+    --primary-light-color: #B742E1;
+    --primary-lighter-color: #151F30;
+    --primary-lightest-color: #081223;
+
+    --page-background-color: #151F30;
+    --page-foreground-color: #F2F2F2;
+  }
+}
+
+
+svg polygon {
+  stroke: var(--page-foreground-color) !important;
+}
+
+svg text {
+  fill: var(--page-foreground-color) !important;
+}
+
+#projectlogo img {
+  padding: 10px;
+  display: block;
+  height: 100px;
+}
+
+img[src$='.svg'], object[data$='.svg'] {
+  filter: hue-rotate(180deg) invert(1);
+}
+
+address img[src$='.svg'] {
+  filter: none;
+}
+
+img[src$='closed.png'],
+img[src$='open.png'] {
+  filter: hue-rotate(295deg);
+}
+
+address {
+  filter: hue-rotate(235deg);
+}
+
+iframe {
+  filter: hue-rotate(55deg) invert(1);
+}
+
+.memtemplate,
+.compoundTemplParams {
+  color: var(--primary-light-color);
+}
+
+span.mlabel {
+  color: var(--menu-focus-foreground);
+}
+
+.pageDoc div.image {
+	display: inline-block;
+	padding: 0.6em;
+}
+
+.contents .center {
+	overflow: auto;
+}
+
+div.qindex {
+	background-color: var(--page-background-color);
+	border-color: var(--separator-color);
+}

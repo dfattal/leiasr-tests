@@ -1,0 +1,5 @@
+<map id="SR::GestureAnalyser" name="SR::GestureAnalyser">
+<area shape="rect" id="node1" title="Sense class which provides gesture analysis functionality to the SR system." alt="" coords="5,171,151,197"/>
+<area shape="rect" id="node2" href="$classSR_1_1Sense.html" title="Class of objects dealing with Streams &#160;of data." alt="" coords="35,95,121,121"/>
+<area shape="rect" id="node3" href="$classSR_1_1Transformation.html" title="Class of objects defining the relation between different coordinate systems." alt="" coords="11,5,145,32"/>
+</map>

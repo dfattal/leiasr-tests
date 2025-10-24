@@ -1,0 +1,14 @@
+<map id="API" name="API">
+<area shape="rect" id="node1" title="Application Programming Interface to be used by C++ SR applications." alt="" coords="5,575,48,601"/>
+<area shape="rect" id="node2" href="$group__Application.html" title="Classes that enable applications to get access to data about other SR Applications." alt="" coords="307,26,394,51"/>
+<area shape="rect" id="node3" href="$group__Camera.html" title="Classes that enable applications to get access to video input." alt="" coords="317,189,384,214"/>
+<area shape="rect" id="node4" href="$group__Core.html" title="Classes used to shape the foundation of the SR system." alt="" coords="326,307,375,333"/>
+<area shape="rect" id="node5" href="$group__Core__Network.html" title="Classes that form the foundation of cross&#45;application communication for the SR system." alt="" coords="299,382,402,407"/>
+<area shape="rect" id="node6" href="$group__EyeTracker.html" title="Classes that enable applications to get access to data about the position of the user&#39;s eyes." alt="" coords="307,486,395,511"/>
+<area shape="rect" id="node7" href="$group__GestureAnalyser.html" title="Classes that enable applications to get access to data about gestures performed by the user." alt="" coords="291,575,410,601"/>
+<area shape="rect" id="node8" href="$group__HandTracker.html" title="Classes that enable applications to get access to data about the pose of the user&#39;s hands." alt="" coords="303,738,398,763"/>
+<area shape="rect" id="node9" href="$group__HeadPoseTracker.html" title="Classes that enable applications to get access to data about the pose of the user&#39;s head." alt="" coords="288,813,413,838"/>
+<area shape="rect" id="node10" href="$group__HeadTracker.html" title="Classes that enable applications to get access to data about the position of the user&#39;s head." alt="" coords="303,902,398,927"/>
+<area shape="rect" id="node11" href="$group__System.html" title="Classes that enable applications to get access to data about SR system." alt="" coords="317,1006,384,1031"/>
+<area shape="rect" id="node12" href="$group__WeaverTracker.html" title="Classes that enable applications to get access to weaving data." alt="" coords="297,1110,405,1135"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="SR::IWeaverBase1" name="SR::IWeaverBase1">
+<area shape="rect" id="node1" title="Weaver base class for all graphics APIs." alt="" coords="315,80,445,107"/>
+<area shape="rect" id="node3" href="$classSR_1_1IDX10Weaver1.html" title="class to be used for weaving in DirectX 10 applications" alt="" coords="5,155,136,181"/>
+<area shape="rect" id="node4" href="$classSR_1_1IDX11Weaver1.html" title="class to be used for weaving in DirectX 11 applications" alt="" coords="160,155,291,181"/>
+<area shape="rect" id="node5" href="$classSR_1_1IDX12Weaver1.html" title="class to be used for weaving in DirectX 12 applications" alt="" coords="315,155,445,181"/>
+<area shape="rect" id="node6" href="$classSR_1_1IDX9Weaver1.html" title="class to be used for weaving in DirectX 9 applications" alt="" coords="470,155,594,181"/>
+<area shape="rect" id="node7" href="$classSR_1_1IGLWeaver1.html" title="class to be used for weaving in OpenGL applications" alt="" coords="618,155,737,181"/>
+<area shape="rect" id="node2" href="$classSR_1_1IQueryInterface.html" title="Interface for querying interfaces with a specific type." alt="" coords="313,5,447,32"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="SR::PredictingEyeTracker" name="SR::PredictingEyeTracker">
+<area shape="rect" id="node1" title="Sense class which provides predictive eye tracking functionality." alt="" coords="53,155,225,181"/>
+<area shape="rect" id="node2" href="$classSR_1_1EyeTracker.html" title="Sense class which provides face tracking functionality to the SR system." alt="" coords="5,80,120,107"/>
+<area shape="rect" id="node3" href="$classSR_1_1Sense.html" title="Class of objects dealing with Streams &#160;of data." alt="" coords="20,5,105,32"/>
+<area shape="rect" id="node4" href="$classSR_1_1EyePairListener.html" title="Interface for listening to SR_eyePair updates." alt="" coords="145,80,285,107"/>
+</map>

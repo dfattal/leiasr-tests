@@ -1,0 +1,4 @@
+<map id="SR::WorldObject" name="SR::WorldObject">
+<area shape="rect" id="node1" title="Class representing both real and virtual objects as nodes in the World tree." alt="" coords="12,95,132,121"/>
+<area shape="rect" id="node2" href="$classSR_1_1Transformation.html" title="Class of objects defining the relation between different coordinate systems." alt="" coords="5,5,139,32"/>
+</map>

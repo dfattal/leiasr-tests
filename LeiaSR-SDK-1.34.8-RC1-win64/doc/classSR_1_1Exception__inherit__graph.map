@@ -1,0 +1,7 @@
+<map id="SR::Exception" name="SR::Exception">
+<area shape="rect" id="node1" title="Class of exception which indicates a general SR logic error." alt="" coords="157,71,264,98"/>
+<area shape="rect" id="node3" href="$classSR_1_1CameraControllerUnavailableException.html" title="Class of Exception which indicates the CameraController can not be used at this point in time." alt="" coords="313,5,526,47"/>
+<area shape="rect" id="node4" href="$classSR_1_1DeviceNotAvailableException.html" title="Class of exception which indicates that a hardware device was not available for use in the SR system." alt="" coords="312,71,527,98"/>
+<area shape="rect" id="node5" href="$classSR_1_1ServerNotAvailableException.html" title="Class of Exception which indicates that a SR Service was not available to connect with." alt="" coords="313,122,526,149"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,71,109,98"/>
+</map>

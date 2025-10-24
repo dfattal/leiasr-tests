@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classSR_1_1Receiver.html" title="Interface to be used to enable receiving SR_packet from other SR applications." alt="" coords="5,5,103,32"/>
+<area shape="rect" id="node2" href="$classSR_1_1SRContext.html" title="Maintains WorldObject and Sense objects during the application lifetime." alt="" coords="151,5,261,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="SR::IDisplay" name="SR::IDisplay">
+<area shape="rect" id="node1" title="Interface representing an SR display." alt="" coords="25,80,120,107"/>
+<area shape="rect" id="node2" href="$classSR_1_1IQueryInterface.html" title="Interface for querying interfaces with a specific type." alt="" coords="5,5,140,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="SR_eyePair" name="SR_eyePair">
+<area shape="rect" id="node1" title="C&#45;compatible struct containing the position of two eyes." alt="" coords="7,124,98,151"/>
+<area shape="rect" id="node2" href="$unionSR__vector3d.html" title="C&#45;compatible 3d double vector representation." alt="" coords="5,5,100,32"/>
+</map>

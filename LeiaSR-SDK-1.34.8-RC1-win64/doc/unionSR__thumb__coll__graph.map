@@ -1,0 +1,4 @@
+<map id="SR_thumb" name="SR_thumb">
+<area shape="rect" id="node1" title="C&#45;compatible struct containing the part of the pose representing a thumb." alt="" coords="11,183,94,209"/>
+<area shape="rect" id="node2" href="$unionSR__vector3d.html" title="C&#45;compatible 3d double vector representation." alt="" coords="5,5,100,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="SR::EyePairListener" name="SR::EyePairListener">
+<area shape="rect" id="node1" title="Interface for listening to SR_eyePair updates." alt="" coords="124,5,264,32"/>
+<area shape="rect" id="node2" href="$classSR_1_1PredictingEyeTracker.html" title="Sense class which provides predictive eye tracking functionality." alt="" coords="5,80,177,107"/>
+<area shape="rect" id="node3" href="$classSR_1_1PredictingWeaverTracker.html" title="Sense class which provides predictive weaver position tracking functionality." alt="" coords="202,80,394,107"/>
+</map>

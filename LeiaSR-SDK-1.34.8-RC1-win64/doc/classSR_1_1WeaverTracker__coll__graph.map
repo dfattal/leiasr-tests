@@ -1,0 +1,5 @@
+<map id="SR::WeaverTracker" name="SR::WeaverTracker">
+<area shape="rect" id="node1" title="Sense class which provides weave tracking functionality to the SR system." alt="" coords="5,171,140,197"/>
+<area shape="rect" id="node2" href="$classSR_1_1Sense.html" title="Class of objects dealing with Streams &#160;of data." alt="" coords="30,95,115,121"/>
+<area shape="rect" id="node3" href="$classSR_1_1Transformation.html" title="Class of objects defining the relation between different coordinate systems." alt="" coords="6,5,139,32"/>
+</map>

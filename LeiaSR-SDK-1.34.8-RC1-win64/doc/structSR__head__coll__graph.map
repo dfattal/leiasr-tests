@@ -1,0 +1,7 @@
+<map id="SR_head" name="SR_head">
+<area shape="rect" id="node1" title="C&#45;compatible struct containing the position of head." alt="" coords="143,213,218,240"/>
+<area shape="rect" id="node2" href="$structSR__headPose.html" title=" " alt="" coords="5,124,111,151"/>
+<area shape="rect" id="node3" href="$unionSR__vector3d.html" title="C&#45;compatible 3d double vector representation." alt="" coords="133,5,228,32"/>
+<area shape="rect" id="node4" href="$structSR__eyePair.html" title="C&#45;compatible struct containing the position of two eyes." alt="" coords="135,124,226,151"/>
+<area shape="rect" id="node5" href="$structSR__earPair.html" title=" " alt="" coords="250,124,338,151"/>
+</map>

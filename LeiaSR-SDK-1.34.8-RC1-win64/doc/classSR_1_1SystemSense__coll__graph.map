@@ -1,0 +1,5 @@
+<map id="SR::SystemSense" name="SR::SystemSense">
+<area shape="rect" id="node1" title="Sense class which shares information about the SR system throughout the SR system and to applications..." alt="" coords="7,171,137,197"/>
+<area shape="rect" id="node2" href="$classSR_1_1Sense.html" title="Class of objects dealing with Streams &#160;of data." alt="" coords="29,95,115,121"/>
+<area shape="rect" id="node3" href="$classSR_1_1Transformation.html" title="Class of objects defining the relation between different coordinate systems." alt="" coords="5,5,139,32"/>
+</map>

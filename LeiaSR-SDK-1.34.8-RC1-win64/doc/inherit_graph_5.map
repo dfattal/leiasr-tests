@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classSR_1_1CameraController.html" title="Interface defining camera functions to control sensor parameters." alt="" coords="5,5,153,32"/>
+<area shape="rect" id="node2" href="$classSR_1_1UniqueCameraController.html" title="Non&#45;copyable class of CameraController interface that can only be constructed once per Camera (Camera..." alt="" coords="201,5,389,32"/>
+</map>

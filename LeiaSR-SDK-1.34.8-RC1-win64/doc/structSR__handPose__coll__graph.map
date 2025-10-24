@@ -1,0 +1,6 @@
+<map id="SR_handPose" name="SR_handPose">
+<area shape="rect" id="node1" title="C&#45;compatible struct containing the pose of a hand." alt="" coords="48,377,153,404"/>
+<area shape="rect" id="node2" href="$unionSR__vector3d.html" title="C&#45;compatible 3d double vector representation." alt="" coords="53,5,148,32"/>
+<area shape="rect" id="node3" href="$unionSR__thumb.html" title="C&#45;compatible struct containing the part of the pose representing a thumb." alt="" coords="59,221,142,247"/>
+<area shape="rect" id="node4" href="$unionSR__finger.html" title="C&#45;compatible struct containing a part of the pose representing a finger." alt="" coords="167,221,245,247"/>
+</map>

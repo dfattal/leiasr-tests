@@ -1,0 +1,6 @@
+<map id="SR::PredictingWeaverTracker" name="SR::PredictingWeaverTracker">
+<area shape="rect" id="node1" title="Sense class which provides predictive weaver position tracking functionality." alt="" coords="57,155,249,181"/>
+<area shape="rect" id="node2" href="$classSR_1_1WeaverTracker.html" title="Sense class which provides weave tracking functionality to the SR system." alt="" coords="5,80,140,107"/>
+<area shape="rect" id="node3" href="$classSR_1_1Sense.html" title="Class of objects dealing with Streams &#160;of data." alt="" coords="30,5,115,32"/>
+<area shape="rect" id="node4" href="$classSR_1_1EyePairListener.html" title="Interface for listening to SR_eyePair updates." alt="" coords="164,80,304,107"/>
+</map>

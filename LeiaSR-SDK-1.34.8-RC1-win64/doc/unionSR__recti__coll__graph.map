@@ -1,0 +1,4 @@
+<map id="SR_recti" name="SR_recti">
+<area shape="rect" id="node1" title="C&#45;compatible integer rectangle representation." alt="" coords="15,109,87,136"/>
+<area shape="rect" id="node2" href="$unionSR__vector2i.html" title="C&#45;compatible 2d integer vector representation." alt="" coords="5,5,96,32"/>
+</map>

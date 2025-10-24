@@ -1,0 +1,4 @@
+<map id="SR::HandTracker" name="SR::HandTracker">
+<area shape="rect" id="node1" title="Sense class which provides hand tracking functionality to the SR system." alt="" coords="5,80,127,107"/>
+<area shape="rect" id="node2" href="$classSR_1_1Sense.html" title="Class of objects dealing with Streams &#160;of data." alt="" coords="23,5,109,32"/>
+</map>

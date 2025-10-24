@@ -1,0 +1,4 @@
+<map id="HandTracker" name="HandTracker">
+<area shape="rect" id="node1" href="$group__API.html" title="Application Programming Interface to be used by C++ SR applications." alt="" coords="283,125,325,150"/>
+<area shape="rect" id="node2" title="Classes that enable applications to get access to data about the pose of the user&#39;s hands." alt="" coords="5,125,100,150"/>
+</map>

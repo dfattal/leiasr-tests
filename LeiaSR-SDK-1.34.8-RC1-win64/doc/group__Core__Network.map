@@ -1,0 +1,4 @@
+<map id="Core_Network" name="Core_Network">
+<area shape="rect" id="node1" href="$group__API.html" title="Application Programming Interface to be used by C++ SR applications." alt="" coords="279,37,321,62"/>
+<area shape="rect" id="node2" title="Classes that form the foundation of cross&#45;application communication for the SR system." alt="" coords="5,37,108,62"/>
+</map>

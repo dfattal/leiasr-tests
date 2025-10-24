@@ -1,0 +1,15 @@
+<map id="SR::Sense" name="SR::Sense">
+<area shape="rect" id="node1" title="Class of objects dealing with Streams &#160;of data." alt="" coords="5,233,91,260"/>
+<area shape="rect" id="node2" href="$classSR_1_1ApplicationSense.html" title="Sense class which shares information about SR Applications throughout the SR system and to applicatio..." alt="" coords="145,5,295,32"/>
+<area shape="rect" id="node3" href="$classSR_1_1Camera.html" title="Class of Sense dealing with video data." alt="" coords="173,56,267,83"/>
+<area shape="rect" id="node4" href="$classSR_1_1EyeTracker.html" title="Sense class which provides face tracking functionality to the SR system." alt="" coords="163,107,277,133"/>
+<area shape="rect" id="node6" href="$classSR_1_1GestureAnalyser.html" title="Sense class which provides gesture analysis functionality to the SR system." alt="" coords="147,157,293,184"/>
+<area shape="rect" id="node7" href="$classSR_1_1HandTracker.html" title="Sense class which provides hand tracking functionality to the SR system." alt="" coords="159,208,281,235"/>
+<area shape="rect" id="node8" href="$classSR_1_1HeadPoseTracker.html" title="Sense class which provides head pose tracking functionality to the SR system." alt="" coords="145,259,295,285"/>
+<area shape="rect" id="node9" href="$classSR_1_1HeadTracker.html" title="Sense class which provides face tracking functionality to the SR system." alt="" coords="159,309,281,336"/>
+<area shape="rect" id="node10" href="$classSR_1_1SwitchableLensHint.html" title="Pure virtual interface for controlling switchable lenses from applications." alt="" coords="139,360,301,387"/>
+<area shape="rect" id="node11" href="$classSR_1_1SystemSense.html" title="Sense class which shares information about the SR system throughout the SR system and to applications..." alt="" coords="155,411,285,437"/>
+<area shape="rect" id="node12" href="$classSR_1_1WeaverTracker.html" title="Sense class which provides weave tracking functionality to the SR system." alt="" coords="153,461,287,488"/>
+<area shape="rect" id="node5" href="$classSR_1_1PredictingEyeTracker.html" title="Sense class which provides predictive eye tracking functionality." alt="" coords="359,107,531,133"/>
+<area shape="rect" id="node13" href="$classSR_1_1PredictingWeaverTracker.html" title="Sense class which provides predictive weaver position tracking functionality." alt="" coords="349,461,541,488"/>
+</map>

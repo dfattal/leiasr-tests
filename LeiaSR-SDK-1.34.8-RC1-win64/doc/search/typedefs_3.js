@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['sr_5fapplicationsense_0',['SR_applicationSense',['../admin__c_8h.html#ab008a2c42159f3dade83d1620daaf690',1,'admin_c.h']]],
+  ['sr_5fcamera_1',['SR_camera',['../cameras__c_8h.html#a0551f9b4df828706c9851e329535830b',1,'cameras_c.h']]],
+  ['sr_5fdisplay_2',['SR_display',['../displays__c_8h.html#ada55ec619e0d7377f49dc320cdde2c83',1,'displays_c.h']]],
+  ['sr_5feyepairlistener_3',['SR_eyePairListener',['../facetrackers__c_8h.html#a8b0ab938fb2694c8114feaddc0fafd01',1,'facetrackers_c.h']]],
+  ['sr_5feyetracker_4',['SR_eyeTracker',['../facetrackers__c_8h.html#adb29842b06f9e073674a37e69ccc8b7f',1,'facetrackers_c.h']]],
+  ['sr_5fhandeventlistener_5',['SR_handEventListener',['../handtrackers__c_8h.html#ab3fbffbf55f50d85ae89e420852e6a72',1,'handtrackers_c.h']]],
+  ['sr_5fhandposelistener_6',['SR_handPoseListener',['../handtrackers__c_8h.html#a7bdc489f247257a6a038c0d21d802091',1,'handtrackers_c.h']]],
+  ['sr_5fhandtracker_7',['SR_handTracker',['../handtrackers__c_8h.html#a5f1bbac40e965f7dc183e62ff7fea3fa',1,'handtrackers_c.h']]],
+  ['sr_5fheadlistener_8',['SR_headListener',['../facetrackers__c_8h.html#ae73529c741f0fa1285eac68b6eadadb4',1,'facetrackers_c.h']]],
+  ['sr_5fheadtracker_9',['SR_headTracker',['../facetrackers__c_8h.html#a21e72947a52a097e93e4d3ad14dc623f',1,'facetrackers_c.h']]],
+  ['sr_5fhwnd_10',['SR_HWND',['../window_8h.html#a10b775059848d8882160b79e7ab4cbc9',1,'SR_HWND():&#160;window.h'],['../window2_8h.html#a10b775059848d8882160b79e7ab4cbc9',1,'SR_HWND():&#160;window2.h']]],
+  ['sr_5fpoint2d_11',['SR_point2d',['../types_8h.html#aa68cab8d966632c41b411c9401724402',1,'types.h']]],
+  ['sr_5fpoint2i_12',['SR_point2i',['../types_8h.html#a4ca38bae2827e2942baa56ef98a83db1',1,'types.h']]],
+  ['sr_5fpoint3d_13',['SR_point3d',['../types_8h.html#ac0627bde4211d498a7d10f02f35274bb',1,'types.h']]],
+  ['sr_5fpredictingweavertracker_14',['SR_predictingWeaverTracker',['../facetrackers__c_8h.html#a3bfa1fda98bc0363fc7bed19a0d85149',1,'facetrackers_c.h']]],
+  ['sr_5fscreen_15',['SR_screen',['../displays__admin__c_8h.html#a8cfe341fd8256dd6bd4d21ff767ae984',1,'SR_screen():&#160;displays_admin_c.h'],['../displays__c_8h.html#a0119a9f0d75bc6d2062a31b8fa74e049',1,'SR_screen():&#160;displays_c.h']]],
+  ['sr_5fswitchablelenshint_16',['SR_switchableLensHint',['../displays__c_8h.html#a1e988eaba9dde13e130ab4399c132548',1,'displays_c.h']]],
+  ['sr_5fswitchablelenshintadmin_17',['SR_switchableLensHintAdmin',['../displays__admin__c_8h.html#ab8fab579202255c2b406d5d73c38cdb1',1,'displays_admin_c.h']]],
+  ['sr_5fsystemeventlistener_18',['SR_systemEventListener',['../core__c_8h.html#a8e8beceb3ea0d9c60040210b017ce5d7',1,'core_c.h']]],
+  ['sr_5fsystemsense_19',['SR_systemSense',['../core__c_8h.html#a6c14081d7762f8954d5188c1e5173433',1,'core_c.h']]],
+  ['sr_5fvideolistener_20',['SR_videoListener',['../cameras__c_8h.html#a2ac6324c0f2519ffa45d5515d9ac7a05',1,'cameras_c.h']]],
+  ['sr_5fweaverpositionlistener_21',['SR_weaverPositionListener',['../facetrackers__c_8h.html#a5c6a714b9e2d3b79495b92c24f6b30d6',1,'facetrackers_c.h']]],
+  ['srcontext_22',['SRContext',['../admin__c_8h.html#a4581051de5f1877a7bb335e91efa5775',1,'SRContext():&#160;admin_c.h'],['../core__c_8h.html#a4581051de5f1877a7bb335e91efa5775',1,'SRContext():&#160;core_c.h']]]
+];

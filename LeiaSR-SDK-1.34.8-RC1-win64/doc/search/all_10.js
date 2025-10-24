@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['receive_0',['receive',['../classSR_1_1SRContext.html#a3ee5610f5124089ffc52a248091793f5',1,'SR::SRContext::receive()'],['../classSR_1_1Receiver.html#a135f2937d1eef83227710fd690738d25',1,'SR::Receiver::receive()']]],
+  ['receiver_1',['Receiver',['../classSR_1_1Receiver.html',1,'SR']]],
+  ['receiver_2eh_2',['receiver.h',['../receiver_8h.html',1,'']]],
+  ['reconfigureweaver_3',['ReconfigureWeaver',['../classDimenco_1_1Weaver.html#a16129de9c337e7e93646f12a1c3f4aae',1,'Dimenco::Weaver']]],
+  ['rectangle_4',['rectangle',['../structSR_1_1MonitorData.html#a03124ba01549435ac47e0517ab7156bf',1,'SR::MonitorData']]],
+  ['relativeposition_5',['relativePosition',['../classSR_1_1WorldObject.html#a4a13f07a2ac855eaa4c58f2b214577e0',1,'SR::WorldObject']]],
+  ['releasegesture_6',['ReleaseGesture',['../gesture_8h.html#a2f802f61861554276c59afaed634fe54afe9896516b6ebfe3fb77c5f1c4696981',1,'gesture.h']]],
+  ['removesense_7',['removeSense',['../classSR_1_1SRContext.html#aab4a929d069c732a21650273c7ae2551',1,'SR::SRContext']]],
+  ['resolution_8',['Resolution',['../structSR_1_1Resolution.html',1,'SR']]],
+  ['restoredeviceobjects_9',['restoreDeviceObjects',['../classSR_1_1IDX9Weaver1.html#a402ffa411b3354ebf97716ef511b5ac6',1,'SR::IDX9Weaver1::restoreDeviceObjects()'],['../classSR_1_1DX9WeaverBase.html#a6bdbe1a3701715bdedcf11fbeaba9788',1,'SR::DX9WeaverBase::restoreDeviceObjects()']]],
+  ['reverse_10',['reverse',['../classSR_1_1Transformation.html#a566caeba4db684c61262209ad3bc2dc3',1,'SR::Transformation']]],
+  ['right_11',['right',['../structSR__eyePair.html#ac933cc07efc611ede76522d7995cb13c',1,'SR_eyePair::right()'],['../structSR__earPair.html#a76d0ca29b467a6440af455f5664f8667',1,'SR_earPair::right()'],['../unionSR__recti.html#aa0d00bd2c5340f41d0174e1062f11e39',1,'SR_recti::right()']]],
+  ['righteye_12',['RightEye',['../eyepair_8h.html#a2f0acc356d0aef4ff8cae872d0eabe82ae04c1066c5e313fde5df705e8bdb6a42',1,'eyepair.h']]],
+  ['righthand_13',['RightHand',['../group__HandTracker.html#gga68c30757709b924007e8722298deb938a1e1e1ca54185939040dead108694fcc5',1,'handpose.h']]],
+  ['ring_14',['ring',['../structSR__handPose.html#adfb1016d4f6b92e832d1aa04b3861d82',1,'SR_handPose']]],
+  ['ring_5fdistal_15',['Ring_Distal',['../handpose_8h.html#a64234aaef422076b2b3554267ffabbe5ad4e5d8c8d148494ad822a2df39e907fd',1,'handpose.h']]],
+  ['ring_5fintermediate_16',['Ring_Intermediate',['../handpose_8h.html#a64234aaef422076b2b3554267ffabbe5a7f516e5dfe2009b4bee720bdfdf0bbe3',1,'handpose.h']]],
+  ['ring_5fmetacarpal_17',['Ring_Metacarpal',['../handpose_8h.html#a64234aaef422076b2b3554267ffabbe5a21a3d3e98ec9b58ee998c8e1bc372474',1,'handpose.h']]],
+  ['ring_5fproximal_18',['Ring_Proximal',['../handpose_8h.html#a64234aaef422076b2b3554267ffabbe5a08e1582565b93963b820f31c901c80ae',1,'handpose.h']]]
+];

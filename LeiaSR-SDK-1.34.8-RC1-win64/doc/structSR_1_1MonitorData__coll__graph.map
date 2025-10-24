@@ -1,0 +1,7 @@
+<map id="SR::MonitorData" name="SR::MonitorData">
+<area shape="rect" id="node1" title=" " alt="" coords="102,213,221,240"/>
+<area shape="rect" id="node2" href="$unionSR__recti.html" title="C&#45;compatible integer rectangle representation." alt="" coords="15,109,87,136"/>
+<area shape="rect" id="node3" href="$unionSR__vector2i.html" title="C&#45;compatible 2d integer vector representation." alt="" coords="5,5,96,32"/>
+<area shape="rect" id="node4" href="$unionSR_1_1EdidData.html" title=" " alt="" coords="111,109,212,136"/>
+<area shape="rect" id="node5" href="$structSR_1_1Resolution.html" title=" " alt="" coords="236,109,345,136"/>
+</map>

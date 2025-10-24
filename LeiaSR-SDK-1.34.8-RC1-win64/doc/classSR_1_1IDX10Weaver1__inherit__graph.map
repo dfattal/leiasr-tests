@@ -1,0 +1,6 @@
+<map id="SR::IDX10Weaver1" name="SR::IDX10Weaver1">
+<area shape="rect" id="node1" title="class to be used for weaving in DirectX 10 applications" alt="" coords="97,155,228,181"/>
+<area shape="rect" id="node2" href="$classSR_1_1IDestroyable.html" title="Interface for objects that can be destroyed." alt="" coords="5,80,125,107"/>
+<area shape="rect" id="node3" href="$classSR_1_1IQueryInterface.html" title="Interface for querying interfaces with a specific type." alt="" coords="146,5,281,32"/>
+<area shape="rect" id="node4" href="$classSR_1_1IWeaverBase1.html" title="Weaver base class for all graphics APIs." alt="" coords="200,80,331,107"/>
+</map>

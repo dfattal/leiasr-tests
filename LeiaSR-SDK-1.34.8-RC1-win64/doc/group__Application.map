@@ -1,0 +1,4 @@
+<map id="Application" name="Application">
+<area shape="rect" id="node1" href="$group__API.html" title="Application Programming Interface to be used by C++ SR applications." alt="" coords="268,7,311,33"/>
+<area shape="rect" id="node2" title="Classes that enable applications to get access to data about other SR Applications." alt="" coords="5,7,92,33"/>
+</map>

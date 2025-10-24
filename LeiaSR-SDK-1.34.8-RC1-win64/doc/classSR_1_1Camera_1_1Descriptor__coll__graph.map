@@ -1,0 +1,4 @@
+<map id="SR::Camera::Descriptor" name="SR::Camera::Descriptor">
+<area shape="rect" id="node1" title="Class describing a physical camera." alt="" coords="5,95,165,121"/>
+<area shape="rect" id="node2" href="$structSR__cameraDescriptor.html" title="C&#45;compatible descriptor of SR camera component." alt="" coords="11,5,160,32"/>
+</map>
