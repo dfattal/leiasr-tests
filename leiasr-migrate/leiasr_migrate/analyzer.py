@@ -40,6 +40,10 @@ class CodeAnalyzer:
         if not file_path.endswith(('.cpp', '.h', '.hpp', '.cc')):
             return []
 
+        # Skip helper files - don't try to migrate the migration helper itself!
+        if 'display_helper.h' in file_path:
+            return []
+
         try:
             with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                 content = f.read()
