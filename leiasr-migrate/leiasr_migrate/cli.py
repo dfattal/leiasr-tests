@@ -105,7 +105,7 @@ def cmd_migrate(args):
             return 1
 
     # Perform transformation
-    transformer = CodeTransformer(helper_path=args.helper_path)
+    transformer = CodeTransformer()
     transformations = transformer.transform_directory(
         args.path,
         file_list=files_to_migrate,
@@ -157,7 +157,7 @@ Examples:
   leiasr-migrate migrate /path/to/project --dry-run
 
   # Perform migration
-  leiasr-migrate migrate /path/to/project --helper-path=../common
+  leiasr-migrate migrate /path/to/project
         """
     )
 
@@ -175,8 +175,6 @@ Examples:
     migrate_parser = subparsers.add_parser('migrate',
                                           help='Perform migration')
     migrate_parser.add_argument('path', help='File or directory to migrate')
-    migrate_parser.add_argument('--helper-path', default='../common',
-                               help='Path to display_helper.h (default: ../common)')
     migrate_parser.add_argument('--dry-run', action='store_true',
                                help='Show what would be changed without modifying files')
     migrate_parser.add_argument('--yes', '-y', action='store_true',
