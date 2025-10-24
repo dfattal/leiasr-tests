@@ -26,6 +26,10 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+# EXCEPTION: Include SDK third-party x64/x86 libraries
+!LeiaSR-SDK-*/third_party/**/x64/
+!LeiaSR-SDK-*/third_party/**/x86/
+
 # Visual Studio cache/options
 .vs/
 *.rsuser

@@ -117,6 +117,16 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
+    - name: Install .NET Framework 4.6.1 Developer Pack
+      shell: pwsh
+      run: |
+        Write-Host "Installing .NET Framework 4.6.1 Developer Pack..."
+        $url = "https://go.microsoft.com/fwlink/?linkid=2099470"
+        $output = "$env:TEMP\ndp461-devpack.exe"
+        Invoke-WebRequest -Uri $url -OutFile $output
+        Start-Process -FilePath $output -ArgumentList "/quiet", "/norestart" -Wait
+        Write-Host ".NET Framework 4.6.1 Developer Pack installed"
+
     - name: Setup MSVC
       uses: microsoft/setup-msbuild@v2
 
