@@ -1,10 +1,18 @@
 # LeiaSR Migration Tool - Quick Start Guide
 
+## What's New in Version 1.1.0
+
+🎉 **display_helper.h is now automatically created!**
+- No manual file copying required
+- Simplified command (no --helper-path argument)
+- Self-contained migration process
+
 ## What's Included
 
-- `leiasr-migrate.exe` - Standalone executable (no Python required)
-- `README.md` - Full documentation
+- `leiasr-migrate.exe` - Standalone executable (7.9 MB, no Python required)
+- `FULL-README.md` - Complete documentation
 - `README.txt` - Basic usage info
+- `QUICKSTART.md` - This file
 
 ## Requirements
 
@@ -34,14 +42,14 @@ This shows what will be changed without modifying files.
 ### 3. Perform Migration
 
 ```cmd
-leiasr-migrate.exe migrate C:\path\to\your\project --helper-path=../common
+leiasr-migrate.exe migrate C:\path\to\your\project
 ```
 
 This will:
+- **Automatically create** `display_helper.h` in your project
 - Rename original files to `.legacy` extension
 - Write migrated code to original filenames
 - Add SRDISPLAY_LAZYBINDING support
-- Include display_helper.h
 
 ### 4. Review Results
 
@@ -51,7 +59,7 @@ Compare the migrated code with originals:
 fc /n main.cpp.legacy main.cpp
 ```
 
-Or use any diff tool (WinMerge, Beyond Compare, etc.)
+Or use any diff tool (WinMerge, Beyond Compare, VS Code, etc.)
 
 ### 5. Test Your Build
 
@@ -74,10 +82,6 @@ del /s *.legacy
 
 Make sure you're in the same directory as the executable, or add it to your PATH.
 
-### Missing display_helper.h
-
-Make sure you've copied `display_helper.h` to your common includes directory and specify the correct path with `--helper-path`.
-
 ### Build Errors After Migration
 
 Add to your CMakeLists.txt:
@@ -95,10 +99,11 @@ Total patterns detected: 12
   High confidence: 4
   Medium confidence: 8
 
-C:\> leiasr-migrate.exe migrate C:\my_app --helper-path=../common
+C:\> leiasr-migrate.exe migrate C:\my_app
 
 Proceed with migration? (y/N): y
 
+Created display_helper.h at C:\my_app\display_helper.h
 Migrated main.cpp (9 changes)
 Original saved to main.cpp.legacy
 
@@ -113,6 +118,26 @@ C:\my_app> build\Release\my_app.exe
 C:\my_app> del *.legacy
 ```
 
+## What Gets Migrated
+
+### Before Migration
+```cpp
+#include "sr/world/display/display.h"
+
+SR::Display* display = SR::Display::create(context);
+SR_recti displayLocation = display->getLocation();
+```
+
+### After Migration
+```cpp
+#define SRDISPLAY_LAZYBINDING  // Enable modern DisplayManager with fallback
+#include "sr/world/display/display.h"
+#include "display_helper.h"    // <-- Automatically created!
+
+SR::Helper::DisplayAccess display(context);
+SR_recti displayLocation = display.getLocation();
+```
+
 ## Getting Help
 
 Run with `--help` for full options:
@@ -123,16 +148,27 @@ leiasr-migrate.exe analyze --help
 leiasr-migrate.exe migrate --help
 ```
 
+## Version Information
+
+**Version**: 1.1.0 (Auto-Generation Update)
+**Build Date**: October 24, 2025
+**Built From**: [leiasr-tests](https://github.com/dfattal/leiasr-tests) repository
+**Changes**:
+- ✨ Auto-generates display_helper.h
+- ✅ Removed --helper-path argument
+- ✅ Simplified workflow
+- ✅ Self-contained migration
+
 ## More Information
 
-See `README.md` for:
+See `FULL-README.md` for:
 - Complete command reference
 - Migration patterns explained
 - Troubleshooting guide
 - Advanced usage
+- File structure details
 
-## Version
+## Support
 
-**1.0.0** - Built from [leiasr-tests](https://github.com/dfattal/leiasr-tests) repository
-
-Generated with GitHub Actions on Windows Server 2022.
+For issues or questions, see documentation at:
+https://github.com/dfattal/leiasr-tests
