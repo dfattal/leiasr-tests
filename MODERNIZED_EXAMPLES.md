@@ -233,13 +233,6 @@ target_include_directories(my_app PRIVATE
 - ✅ No runtime dependencies on specific SDK versions
 - ✅ Easy to test with/without SR display
 
-## Build Results
-
-**Workflow Run**: #18767805496
-**Status**: ✅ Success (3m 48s)
-**Artifacts Generated**: 2
-
-Both examples built successfully on first attempt with no errors!
 
 ## Next Steps
 
@@ -251,9 +244,3 @@ To modernize more examples:
 4. Add validity checks with `isDisplayValid()`
 5. Update CMakeLists.txt with `-DSRDISPLAY_LAZYBINDING`
 6. Add to matrix in `.github/workflows/build-modernized-examples.yml`
-
-## References
-
-- `DisplayManager.md` - Full technical documentation on IDisplayManager
-- `sdk-summary.md` - Complete SDK overview
-- `CLAUDE.md` - Development guidelines for this repository

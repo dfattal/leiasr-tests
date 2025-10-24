@@ -17,7 +17,18 @@ This tool automatically migrates C++ code from the legacy `SR::Display` API to t
 
 ## Installation
 
-### From Source
+### Option 1: Windows Executable (Recommended)
+
+Download the pre-built executable from GitHub Actions artifacts:
+
+1. Go to the [Actions tab](https://github.com/dfattal/leiasr-tests/actions/workflows/build-migration-tool.yml)
+2. Click the latest successful build
+3. Download `leiasr-migrate-release` artifact
+4. Extract and run `leiasr-migrate.exe`
+
+No Python installation required!
+
+### Option 2: From Source
 
 ```bash
 cd leiasr-migrate
@@ -26,8 +37,7 @@ pip install -e .
 
 This installs the `leiasr-migrate` command-line tool.
 
-### Requirements
-
+**Requirements:**
 - Python 3.7+
 - PyYAML 6.0+
 
