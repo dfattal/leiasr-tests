@@ -168,7 +168,7 @@ jobs:
             test-migration-run/directx11_weaving/directx11_weaving/main.cpp.legacy
             test-migration-legacy/directx11_weaving/directx11_weaving/main.cpp
             test-migration-legacy/directx11_weaving/directx11_weaving/main.cpp.legacy
-            test-migration-legacy/directx11_weaving/display_helper.h
+            test-migration-legacy/display_helper.h
           retention-days: 7
 
       - name: Test summary
