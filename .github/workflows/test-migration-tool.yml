@@ -33,7 +33,7 @@ jobs:
         run: |
           echo Creating test directory...
           mkdir test-migration-run
-          xcopy /E /I /Y LeiaSR-SDK-1.34.8-RC1-win64\examples\opengl_weaving test-migration-run\opengl_weaving
+          xcopy /E /I /Y LeiaSR-SDK-1.34.8-RC1-win64\examples\directx11_weaving test-migration-run\directx11_weaving
 
       - name: Test - Show help
         shell: cmd
@@ -90,16 +90,16 @@ jobs:
           dir /B /S test-migration-run\*.legacy
           echo.
           echo Checking migrated main.cpp has IDisplayManager:
-          findstr /C:"IDisplayManager" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          findstr /C:"IDisplayManager" test-migration-run\directx11_weaving\directx11_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp has getPrimaryActiveSRDisplay:
-          findstr /C:"getPrimaryActiveSRDisplay" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          findstr /C:"getPrimaryActiveSRDisplay" test-migration-run\directx11_weaving\directx11_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp does NOT have display_helper.h:
-          findstr /C:"display_helper.h" test-migration-run\opengl_weaving\opengl_weaving\main.cpp && exit /b 1 || echo OK - no helper include found
+          findstr /C:"display_helper.h" test-migration-run\directx11_weaving\directx11_weaving\main.cpp && exit /b 1 || echo OK - no helper include found
           echo.
           echo Checking migrated main.cpp does NOT have DisplayAccess:
-          findstr /C:"DisplayAccess" test-migration-run\opengl_weaving\opengl_weaving\main.cpp && exit /b 1 || echo OK - no DisplayAccess found
+          findstr /C:"DisplayAccess" test-migration-run\directx11_weaving\directx11_weaving\main.cpp && exit /b 1 || echo OK - no DisplayAccess found
           echo.
           echo Modern migration verification PASSED!
 
@@ -109,7 +109,7 @@ jobs:
           echo.
           echo Creating second test directory for legacy fallback mode...
           mkdir test-migration-legacy
-          xcopy /E /I /Y LeiaSR-SDK-1.34.8-RC1-win64\examples\opengl_weaving test-migration-legacy\opengl_weaving
+          xcopy /E /I /Y LeiaSR-SDK-1.34.8-RC1-win64\examples\directx11_weaving test-migration-legacy\directx11_weaving
 
       - name: Test - Legacy fallback migration
         shell: cmd
@@ -133,16 +133,16 @@ jobs:
           dir /B /S test-migration-legacy\*.legacy
           echo.
           echo Checking migrated main.cpp has SRDISPLAY_LAZYBINDING:
-          findstr /C:"SRDISPLAY_LAZYBINDING" test-migration-legacy\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          findstr /C:"SRDISPLAY_LAZYBINDING" test-migration-legacy\directx11_weaving\directx11_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp has display_helper.h:
-          findstr /C:"display_helper.h" test-migration-legacy\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          findstr /C:"display_helper.h" test-migration-legacy\directx11_weaving\directx11_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp has DisplayAccess:
-          findstr /C:"DisplayAccess" test-migration-legacy\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          findstr /C:"DisplayAccess" test-migration-legacy\directx11_weaving\directx11_weaving\main.cpp || exit /b 1
           echo.
           echo Checking display_helper.h was created:
-          dir test-migration-legacy\opengl_weaving\display_helper.h || exit /b 1
+          dir test-migration-legacy\directx11_weaving\display_helper.h || exit /b 1
           echo.
           echo Legacy fallback migration verification PASSED!
 
@@ -154,7 +154,7 @@ jobs:
           echo ========================================
           echo Showing first differences between files
           echo ========================================
-          fc /N /L /C test-migration-run\opengl_weaving\opengl_weaving\main.cpp.legacy test-migration-run\opengl_weaving\opengl_weaving\main.cpp | more +10
+          fc /N /L /C test-migration-run\directx11_weaving\directx11_weaving\main.cpp.legacy test-migration-run\directx11_weaving\directx11_weaving\main.cpp | more +10
 
       - name: Upload migration results
         uses: actions/upload-artifact@v4
@@ -162,11 +162,11 @@ jobs:
           name: migration-test-results
           path: |
             MIGRATION-TOOL/python-source/dist/analysis.txt
-            test-migration-run/opengl_weaving/opengl_weaving/main.cpp
-            test-migration-run/opengl_weaving/opengl_weaving/main.cpp.legacy
-            test-migration-legacy/opengl_weaving/opengl_weaving/main.cpp
-            test-migration-legacy/opengl_weaving/opengl_weaving/main.cpp.legacy
-            test-migration-legacy/opengl_weaving/display_helper.h
+            test-migration-run/directx11_weaving/directx11_weaving/main.cpp
+            test-migration-run/directx11_weaving/directx11_weaving/main.cpp.legacy
+            test-migration-legacy/directx11_weaving/directx11_weaving/main.cpp
+            test-migration-legacy/directx11_weaving/directx11_weaving/main.cpp.legacy
+            test-migration-legacy/directx11_weaving/display_helper.h
           retention-days: 7
 
       - name: Test summary
