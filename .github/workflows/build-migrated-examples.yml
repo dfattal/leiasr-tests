@@ -1,0 +1,133 @@
+name: Build Migrated Examples
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  build-migrated-examples:
+    name: Build Modern and Legacy Fallback Examples
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build migration tool
+        shell: cmd
+        run: |
+          cd MIGRATION-TOOL\python-source
+          pip install -r requirements.txt
+          pyinstaller leiasr-migrate.spec
+
+      - name: Create modern migration test environment
+        shell: cmd
+        run: |
+          echo Creating modern migration test directory...
+          mkdir build-modern
+          xcopy /E /I /Y LeiaSR-SDK-1.34.8-RC1-win64\examples\directx11_weaving build-modern\directx11_weaving
+
+      - name: Migrate modern version
+        shell: cmd
+        run: |
+          cd MIGRATION-TOOL\python-source\dist
+          echo.
+          echo ========================================
+          echo Migrating: Modern mode
+          echo ========================================
+          leiasr-migrate.exe migrate ..\..\..\build-modern --yes
+
+      - name: Build modern version
+        shell: cmd
+        run: |
+          echo.
+          echo ========================================
+          echo Building modern migrated example
+          echo ========================================
+          cd build-modern\directx11_weaving
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="%CD%\..\..\LeiaSR-SDK-1.34.8-RC1-win64\lib\cmake"
+          cmake --build build --config Release
+
+      - name: Create legacy fallback migration test environment
+        shell: cmd
+        run: |
+          echo.
+          echo Creating legacy fallback migration test directory...
+          mkdir build-legacy
+          xcopy /E /I /Y LeiaSR-SDK-1.34.8-RC1-win64\examples\directx11_weaving build-legacy\directx11_weaving
+
+      - name: Migrate legacy fallback version
+        shell: cmd
+        run: |
+          cd MIGRATION-TOOL\python-source\dist
+          echo.
+          echo ========================================
+          echo Migrating: Legacy fallback mode
+          echo ========================================
+          leiasr-migrate.exe migrate ..\..\..\build-legacy --legacy-fallback --yes
+
+      - name: Copy display_helper.h to project directory
+        shell: cmd
+        run: |
+          echo Copying display_helper.h to build directory...
+          copy build-legacy\display_helper.h build-legacy\directx11_weaving\directx11_weaving\
+
+      - name: Build legacy fallback version
+        shell: cmd
+        run: |
+          echo.
+          echo ========================================
+          echo Building legacy fallback migrated example
+          echo ========================================
+          cd build-legacy\directx11_weaving
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="%CD%\..\..\LeiaSR-SDK-1.34.8-RC1-win64\lib\cmake" -DSRDISPLAY_LAZYBINDING=ON
+          cmake --build build --config Release
+
+      - name: Verify executables were created
+        shell: cmd
+        run: |
+          echo.
+          echo ========================================
+          echo Verifying executables
+          echo ========================================
+          echo.
+          echo Modern version:
+          dir build-modern\directx11_weaving\build\Release\*.exe
+          echo.
+          echo Legacy fallback version:
+          dir build-legacy\directx11_weaving\build\Release\*.exe
+
+      - name: Upload modern executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: modern-migrated-executable
+          path: |
+            build-modern/directx11_weaving/build/Release/*.exe
+            build-modern/directx11_weaving/directx11_weaving/main.cpp
+          retention-days: 7
+
+      - name: Upload legacy fallback executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-fallback-migrated-executable
+          path: |
+            build-legacy/directx11_weaving/build/Release/*.exe
+            build-legacy/directx11_weaving/directx11_weaving/main.cpp
+            build-legacy/display_helper.h
+          retention-days: 7
+
+      - name: Build summary
+        shell: cmd
+        run: |
+          echo.
+          echo ========================================
+          echo BUILD SUMMARY
+          echo ========================================
+          echo [PASS] Modern migration executable built
+          echo [PASS] Legacy fallback migration executable built
+          echo.
+          echo Executables ready for download in artifacts
