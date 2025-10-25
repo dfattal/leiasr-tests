@@ -96,10 +96,10 @@ jobs:
           findstr /C:"getPrimaryActiveSRDisplay" test-migration-run\directx11_weaving\directx11_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp does NOT have display_helper.h:
-          findstr /C:"display_helper.h" test-migration-run\directx11_weaving\directx11_weaving\main.cpp && exit /b 1 || echo OK - no helper include found
+          findstr /C:"display_helper.h" test-migration-run\directx11_weaving\directx11_weaving\main.cpp >nul && (echo FAILED - found display_helper.h && exit /b 1) || echo OK - no helper include found
           echo.
           echo Checking migrated main.cpp does NOT have DisplayAccess:
-          findstr /C:"DisplayAccess" test-migration-run\directx11_weaving\directx11_weaving\main.cpp && exit /b 1 || echo OK - no DisplayAccess found
+          findstr /C:"DisplayAccess" test-migration-run\directx11_weaving\directx11_weaving\main.cpp >nul && (echo FAILED - found DisplayAccess && exit /b 1) || echo OK - no DisplayAccess found
           echo.
           echo Modern migration verification PASSED!
 
