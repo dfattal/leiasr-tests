@@ -102,6 +102,7 @@ jobs:
           findstr /C:"DisplayAccess" test-migration-run\directx11_weaving\directx11_weaving\main.cpp >nul && (echo FAILED - found DisplayAccess && exit /b 1) || echo OK - no DisplayAccess found
           echo.
           echo Modern migration verification PASSED!
+          exit /b 0
 
       - name: Create second test environment for legacy mode
         shell: cmd
