@@ -333,6 +333,12 @@ class CodeTransformer:
                         file_path, modified_content, transform_config
                     )
                     file_transformations.extend(transforms)
+
+                    # After converting pointers to objects, fix nullptr checks
+                    modified_content, transforms = self._replace_nullptr_checks(
+                        file_path, modified_content, transform_config
+                    )
+                    file_transformations.extend(transforms)
         else:
             # Modern mode: Direct IDisplayManager usage
             for transform_name, transform_config in sorted_transforms:
@@ -507,6 +513,69 @@ class CodeTransformer:
                 description=f'Changed {var_name}-> to {var_name}.'
             )
             transforms.append(transform)
+
+        return modified_content, transforms
+
+    def _replace_nullptr_checks(self, file_path: str, content: str,
+                                config: Dict) -> Tuple[str, List[Transformation]]:
+        """Replace nullptr checks with isDisplayValid() for DisplayAccess variables"""
+        transforms = []
+
+        # First, find all DisplayAccess variables
+        display_access_vars = set()
+        for match in re.finditer(r'SR::Helper::DisplayAccess\s+(\w+)', content):
+            display_access_vars.add(match.group(1))
+
+        if not display_access_vars:
+            return content, transforms
+
+        modified_content = content
+        offset = 0
+
+        # Build pattern for nullptr checks: var != nullptr or var == nullptr
+        for var_name in display_access_vars:
+            # Pattern for != nullptr
+            pattern_ne = rf'{var_name}\s*!=\s*nullptr'
+            for match in re.finditer(pattern_ne, content):
+                replacement = f'{var_name}.isDisplayValid()'
+
+                start = match.start() + offset
+                end = match.end() + offset
+                modified_content = modified_content[:start] + replacement + modified_content[end:]
+
+                offset += len(replacement) - (match.end() - match.start())
+
+                line_num = content[:match.start()].count('\n') + 1
+                transform = Transformation(
+                    file_path=file_path,
+                    line_number=line_num,
+                    original_text=match.group(0),
+                    new_text=replacement,
+                    transformation_type='replace_nullptr_check',
+                    description=f'Changed {var_name} != nullptr to {var_name}.isDisplayValid()'
+                )
+                transforms.append(transform)
+
+            # Pattern for == nullptr
+            pattern_eq = rf'{var_name}\s*==\s*nullptr'
+            for match in re.finditer(pattern_eq, modified_content):
+                replacement = f'!{var_name}.isDisplayValid()'
+
+                # Recalculate positions in modified content
+                start = match.start()
+                end = match.end()
+                modified_content = modified_content[:start] + replacement + modified_content[end:]
+
+                line_num = content[:match.start()].count('\n') + 1
+                transform = Transformation(
+                    file_path=file_path,
+                    line_number=line_num,
+                    original_text=f'{var_name} == nullptr',
+                    new_text=replacement,
+                    transformation_type='replace_nullptr_check',
+                    description=f'Changed {var_name} == nullptr to !{var_name}.isDisplayValid()'
+                )
+                transforms.append(transform)
 
         return modified_content, transforms
 
