@@ -30,6 +30,9 @@ bld/
 !LeiaSR-SDK-*/third_party/**/x64/
 !LeiaSR-SDK-*/third_party/**/x86/
 
+# EXCEPTION: Include migration tool release directory
+!MIGRATION-TOOL/release/
+
 # Visual Studio cache/options
 .vs/
 *.rsuser
