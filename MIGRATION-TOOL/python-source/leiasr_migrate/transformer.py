@@ -527,10 +527,10 @@ class CodeTransformer:
 
             # Generate modern replacement
             # Creates two lines:
-            # 1. auto displayMgr_varName = SR::IDisplayManager::create(context);
+            # 1. SR::IDisplayManager* displayMgr_varName = SR::IDisplayManager::create(context).get();
             # 2. SR::IDisplay* varName = displayMgr_varName->getPrimaryActiveSRDisplay();
             mgr_var_name = f'displayMgr_{var_name}'
-            replacement = f'auto {mgr_var_name} = SR::IDisplayManager::create({context_arg});\n    SR::IDisplay* {var_name} = {mgr_var_name}->getPrimaryActiveSRDisplay();'
+            replacement = f'SR::IDisplayManager* {mgr_var_name} = SR::IDisplayManager::create({context_arg}).get();\n    SR::IDisplay* {var_name} = {mgr_var_name}->getPrimaryActiveSRDisplay();'
 
             # Apply replacement with offset
             start = match.start() + offset
