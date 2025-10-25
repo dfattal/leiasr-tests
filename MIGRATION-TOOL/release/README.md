@@ -99,7 +99,7 @@ int height = display->getResolutionHeight();
 ```cpp
 #include "sr/world/display/display.h"
 
-SR::IDisplayManager* displayMgr_display = SR::IDisplayManager::create(context);
+SR::IDisplayManager* displayMgr_display = SR::GetDisplayManagerInstance(context);
 SR::IDisplay* display = displayMgr_display->getPrimaryActiveSRDisplay();
 int width = display->getResolutionWidth();
 int height = display->getResolutionHeight();
