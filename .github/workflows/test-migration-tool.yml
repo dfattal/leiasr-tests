@@ -4,7 +4,7 @@ on:
   workflow_dispatch:  # Allow manual triggering
   push:
     paths:
-      - 'leiasr-migrate/**'
+      - 'MIGRATION-TOOL/python-source/**'
       - '.github/workflows/test-migration-tool.yml'
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
       - name: Build executable with PyInstaller
         shell: cmd
         run: |
-          cd leiasr-migrate
+          cd MIGRATION-TOOL\python-source
           pip install -r requirements.txt
           pyinstaller leiasr-migrate.spec
 
@@ -38,7 +38,7 @@ jobs:
       - name: Test - Show help
         shell: cmd
         run: |
-          cd leiasr-migrate\dist
+          cd MIGRATION-TOOL\python-source\dist
           echo.
           echo ========================================
           echo Testing: leiasr-migrate.exe --help
@@ -48,12 +48,12 @@ jobs:
       - name: Test - Analyze example
         shell: cmd
         run: |
-          cd leiasr-migrate\dist
+          cd MIGRATION-TOOL\python-source\dist
           echo.
           echo ========================================
           echo Testing: Analyze opengl_weaving
           echo ========================================
-          leiasr-migrate.exe analyze ..\..\test-migration-run --report=analysis.txt
+          leiasr-migrate.exe analyze ..\..\..\test-migration-run --report=analysis.txt
           echo.
           echo Analysis Report:
           type analysis.txt
@@ -61,44 +61,90 @@ jobs:
       - name: Test - Dry run migration
         shell: cmd
         run: |
-          cd leiasr-migrate\dist
+          cd MIGRATION-TOOL\python-source\dist
           echo.
           echo ========================================
           echo Testing: Dry-run migration
           echo ========================================
-          leiasr-migrate.exe migrate ..\..\test-migration-run --dry-run
+          leiasr-migrate.exe migrate ..\..\..\test-migration-run --dry-run
 
-      - name: Test - Actual migration
+      - name: Test - Modern migration (default)
         shell: cmd
         run: |
-          cd leiasr-migrate\dist
+          cd MIGRATION-TOOL\python-source\dist
           echo.
           echo ========================================
-          echo Testing: Actual migration
+          echo Testing: Modern migration (default)
           echo ========================================
-          leiasr-migrate.exe migrate ..\..\test-migration-run --yes
+          leiasr-migrate.exe migrate ..\..\..\test-migration-run --yes
 
-      - name: Verify migration results
+      - name: Verify modern migration results
         shell: cmd
         run: |
           echo.
           echo ========================================
-          echo Verifying migration results
+          echo Verifying modern migration results
           echo ========================================
           echo.
           echo Checking for .legacy files:
           dir /B /S test-migration-run\*.legacy
           echo.
+          echo Checking migrated main.cpp has IDisplayManager:
+          findstr /C:"IDisplayManager" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          echo.
+          echo Checking migrated main.cpp has getPrimaryActiveSRDisplay:
+          findstr /C:"getPrimaryActiveSRDisplay" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          echo.
+          echo Checking migrated main.cpp does NOT have display_helper.h:
+          findstr /C:"display_helper.h" test-migration-run\opengl_weaving\opengl_weaving\main.cpp && exit /b 1 || echo OK - no helper include found
+          echo.
+          echo Checking migrated main.cpp does NOT have DisplayAccess:
+          findstr /C:"DisplayAccess" test-migration-run\opengl_weaving\opengl_weaving\main.cpp && exit /b 1 || echo OK - no DisplayAccess found
+          echo.
+          echo Modern migration verification PASSED!
+
+      - name: Create second test environment for legacy mode
+        shell: cmd
+        run: |
+          echo.
+          echo Creating second test directory for legacy fallback mode...
+          mkdir test-migration-legacy
+          xcopy /E /I /Y LeiaSR-SDK-1.34.8-RC1-win64\examples\opengl_weaving test-migration-legacy\opengl_weaving
+
+      - name: Test - Legacy fallback migration
+        shell: cmd
+        run: |
+          cd MIGRATION-TOOL\python-source\dist
+          echo.
+          echo ========================================
+          echo Testing: Legacy fallback migration
+          echo ========================================
+          leiasr-migrate.exe migrate ..\..\..\test-migration-legacy --legacy-fallback --yes
+
+      - name: Verify legacy fallback migration results
+        shell: cmd
+        run: |
+          echo.
+          echo ========================================
+          echo Verifying legacy fallback migration
+          echo ========================================
+          echo.
+          echo Checking for .legacy files:
+          dir /B /S test-migration-legacy\*.legacy
+          echo.
           echo Checking migrated main.cpp has SRDISPLAY_LAZYBINDING:
-          findstr /C:"SRDISPLAY_LAZYBINDING" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          findstr /C:"SRDISPLAY_LAZYBINDING" test-migration-legacy\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp has display_helper.h:
-          findstr /C:"display_helper.h" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          findstr /C:"display_helper.h" test-migration-legacy\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
           echo.
           echo Checking migrated main.cpp has DisplayAccess:
-          findstr /C:"DisplayAccess" test-migration-run\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
+          findstr /C:"DisplayAccess" test-migration-legacy\opengl_weaving\opengl_weaving\main.cpp || exit /b 1
           echo.
-          echo Migration verification PASSED!
+          echo Checking display_helper.h was created:
+          dir test-migration-legacy\opengl_weaving\display_helper.h || exit /b 1
+          echo.
+          echo Legacy fallback migration verification PASSED!
 
       - name: Show file comparison
         shell: cmd
@@ -115,9 +161,12 @@ jobs:
         with:
           name: migration-test-results
           path: |
-            leiasr-migrate/dist/analysis.txt
+            MIGRATION-TOOL/python-source/dist/analysis.txt
             test-migration-run/opengl_weaving/opengl_weaving/main.cpp
             test-migration-run/opengl_weaving/opengl_weaving/main.cpp.legacy
+            test-migration-legacy/opengl_weaving/opengl_weaving/main.cpp
+            test-migration-legacy/opengl_weaving/opengl_weaving/main.cpp.legacy
+            test-migration-legacy/opengl_weaving/display_helper.h
           retention-days: 7
 
       - name: Test summary
@@ -125,15 +174,25 @@ jobs:
         run: |
           echo.
           echo ========================================
-          echo TEST SUMMARY
+          echo TEST SUMMARY v1.2.0
           echo ========================================
           echo [PASS] Executable runs without errors
           echo [PASS] Help command works
           echo [PASS] Analyze detects patterns
           echo [PASS] Dry-run previews changes
+          echo.
+          echo MODERN MODE (DEFAULT):
+          echo [PASS] Migration creates .legacy files
+          echo [PASS] Migration uses IDisplayManager
+          echo [PASS] Migration calls getPrimaryActiveSRDisplay
+          echo [PASS] No display_helper.h created
+          echo [PASS] No DisplayAccess usage
+          echo.
+          echo LEGACY FALLBACK MODE:
           echo [PASS] Migration creates .legacy files
           echo [PASS] Migration adds SRDISPLAY_LAZYBINDING
           echo [PASS] Migration includes display_helper.h
           echo [PASS] Migration converts to DisplayAccess
+          echo [PASS] display_helper.h file created
           echo.
           echo All tests PASSED!

@@ -74,7 +74,9 @@ simulatedreality-SDK-1.34.8.31132-win64-Release/docs/
 
 # GitHub Actions build artifacts (local testing)
 artifacts/
-examples/
+
+# All example builds and outputs
+EXAMPLES/
 
 # Python
 __pycache__/

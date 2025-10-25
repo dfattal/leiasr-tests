@@ -4,7 +4,7 @@ on:
   workflow_dispatch:  # Allow manual triggering
   push:
     paths:
-      - 'leiasr-migrate/**'
+      - 'MIGRATION-TOOL/python-source/**'
       - '.github/workflows/build-migration-tool.yml'
 
 jobs:
@@ -24,51 +24,54 @@ jobs:
       - name: Install dependencies
         shell: cmd
         run: |
-          cd leiasr-migrate
+          cd MIGRATION-TOOL\python-source
           pip install -r requirements.txt
 
       - name: Build executable with PyInstaller
         shell: cmd
         run: |
-          cd leiasr-migrate
+          cd MIGRATION-TOOL\python-source
           pyinstaller leiasr-migrate.spec
 
       - name: Test executable
         shell: cmd
         run: |
-          cd leiasr-migrate\dist
+          cd MIGRATION-TOOL\python-source\dist
           leiasr-migrate.exe --help
 
       - name: Upload executable artifact
         uses: actions/upload-artifact@v4
         with:
           name: leiasr-migrate-windows
-          path: leiasr-migrate/dist/leiasr-migrate.exe
+          path: MIGRATION-TOOL/python-source/dist/leiasr-migrate.exe
           retention-days: 30
 
       - name: Create release info
         shell: cmd
         run: |
-          cd leiasr-migrate\dist
+          cd MIGRATION-TOOL\python-source\dist
           echo LeiaSR Display API Migration Tool > README.txt
           echo ======================================= >> README.txt
           echo. >> README.txt
-          echo Version: 1.0.0 >> README.txt
+          echo Version: 1.2.0 (Two Migration Modes) >> README.txt
           echo Built: %date% %time% >> README.txt
           echo. >> README.txt
           echo Usage: >> README.txt
           echo   leiasr-migrate.exe analyze ^<path^> >> README.txt
-          echo   leiasr-migrate.exe migrate ^<path^> --helper-path=../common >> README.txt
+          echo   leiasr-migrate.exe migrate ^<path^>  (modern mode - default) >> README.txt
+          echo   leiasr-migrate.exe migrate ^<path^> --legacy-fallback  (backward compatible) >> README.txt
           echo. >> README.txt
           echo For full documentation, see: >> README.txt
-          echo   https://github.com/leiasr-tests/leiasr-migrate/README.md >> README.txt
+          echo   https://github.com/dfattal/leiasr-tests/MIGRATION-TOOL/README.md >> README.txt
 
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:
           name: leiasr-migrate-release
           path: |
-            leiasr-migrate/dist/leiasr-migrate.exe
-            leiasr-migrate/dist/README.txt
-            leiasr-migrate/README.md
+            MIGRATION-TOOL/python-source/dist/leiasr-migrate.exe
+            MIGRATION-TOOL/python-source/dist/README.txt
+            MIGRATION-TOOL/release/README.md
+            MIGRATION-TOOL/release/QUICKSTART.txt
+            MIGRATION-TOOL/release/CHANGELOG.md
           retention-days: 90

@@ -279,6 +279,7 @@ if (mgr) {
         display->getDefaultViewingPosition(x, y, z);  // New capability!
     }
 }
+
 ```
 
 ## Technical Details
